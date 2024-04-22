@@ -9,7 +9,8 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones) {
-      return Retorno.noImplementada();
+        int a = 5;
+        return Retorno.noImplementada();
     }
 
     @Override
