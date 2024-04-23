@@ -60,4 +60,9 @@ public class Aerolinea {
         return this.nombre==aerolinea.getNombre();
         }
     }
+    
+    public int compareTo(Object a) {
+       Aerolinea objetoAerolinea= (Aerolinea) a;
+       return this.nombre.compareTo(objetoAerolinea.nombre);
+    }
 }
