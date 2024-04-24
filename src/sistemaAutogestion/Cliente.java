@@ -49,7 +49,7 @@ public class Cliente {
 
     @Override
     public boolean equals(Object cliente) {
-       if(this.getClass().equals(cliente.getClass())){
+       if(!this.getClass().equals(cliente.getClass())){
            return false;
        }else{
            Cliente otroCliente = (Cliente) cliente;
