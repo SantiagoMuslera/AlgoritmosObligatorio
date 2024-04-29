@@ -6,10 +6,10 @@ package sistemaAutogestion;
 
 import java.util.Objects;
 
-/**
- *
- * @author Santiago
- */
+
+/*los aviones se enlazan con las aerolineas mediante la lista que tiene
+las aerolineas de los aviones. no se necesita este atributo de nomAerolinea
+*/
 public class Avion {
     private String codigo;
     private int capacidadMax;

@@ -10,6 +10,8 @@ import java.util.Objects;
  *
  * @author Santiago
  */
+//Las aerolineas tienen una lista de aviones.
+
 public class Aerolinea {
     private String nombre;
     private String pais;
