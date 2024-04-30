@@ -73,7 +73,7 @@ public class Avion implements Comparable <Avion>{
 
     @Override
     public String toString() {
-        return "Avion{" + "codigo=" + codigo + ", capacidadMax=" + capacidadMax  + '}';
+        return this.codigo + "-" +this.capacidadMax;
     }
     
 

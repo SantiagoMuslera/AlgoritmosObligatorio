@@ -51,7 +51,7 @@ public class Sistema implements IObligatorio {
             return Retorno.error1();
         }
         //finalmente si no esta en el codigo en la aerolinea se agrega el avion.
-        aero.getAviones().agregarInicio(avion);
+        aero.AgregarAvionAlInicio(avion);
         return Retorno.ok();
     }
 
@@ -62,7 +62,7 @@ public class Sistema implements IObligatorio {
             return Retorno.error1();
         }
         Aerolinea aero = (Aerolinea)this.listaAerolineas
-                .obtenerElemento(new Aerolinea(nomAerolinea)).getDato();;
+                .obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
       
         //Si el codigo no esta dentro de la aerolinea
         if(aero.getAviones().estaElemento(new Avion(codAvion))){
@@ -104,13 +104,18 @@ public class Sistema implements IObligatorio {
     //2.1
     @Override
     public Retorno listarAerolineas() {
-        return Retorno.noImplementada();
+        return Retorno.ok(this.listaAerolineas.mostrarLista());
     }
 
     //2.2
     @Override
     public Retorno listarAvionesDeAerolinea(String nombre) {
-        return Retorno.noImplementada();
+        Aerolinea aero = (Aerolinea)this.listaAerolineas
+                .obtenerElemento(new Aerolinea(nombre)).getDato();
+        if(aero==null){
+            return Retorno.error1();
+        }
+        return Retorno.ok(aero.MostrarListaAviones());
     }
 
     //2.3

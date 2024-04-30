@@ -61,13 +61,24 @@ public class Aerolinea implements Comparable <Aerolinea>{
     }
     
     public void EliminarAvion(Avion avion){
-        aviones.eliminarElemento(avion);
+        this.aviones.eliminarElemento(avion);
     }
     
+    public void AgregarAvionAlInicio(Avion avion){
+        this.aviones.agregarInicio(avion);
+    }
+    
+    public void AgregarAvionAlFinal(Avion avion){
+        this.aviones.agregarFinal(avion);
+    }
+    
+    public String MostrarListaAviones(){
+        return this.aviones.mostrarLista();
+    }
     
     @Override
     public String toString() {
-        return "Aerolinea{" + "nombre=" + nombre + ", pais=" + pais + ", cantMaxAviones=" + cantMaxAviones + '}';
+        return this.nombre + "-"+this.pais+"-"+this.cantMaxAviones;
     }
     
     @Override
@@ -80,6 +91,7 @@ public class Aerolinea implements Comparable <Aerolinea>{
         return this.nombre==aerolinea.getNombre();
         }
     }
+    
     
 
     @Override

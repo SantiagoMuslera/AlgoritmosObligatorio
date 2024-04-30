@@ -40,8 +40,14 @@ public class Lista <T extends Comparable<T>> implements ILista<T> {
     }
 
     @Override
-    public void mostrarLista() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String mostrarLista() {
+        StringBuilder sb = new StringBuilder();
+        Nodo<T> actual = this.inicio;
+        while(actual != null){
+            sb.append(actual.getDato()).append('|');
+            actual = actual.getSiguiente();
+        }
+        return sb.toString();
     }
 
     @Override

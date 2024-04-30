@@ -20,7 +20,7 @@ public interface ILista <T extends Comparable <T>>{
     
     //pre: tenemos una lista de datos T
     //post: muestra los datos de la lista    
-    public void mostrarLista();
+    public String mostrarLista();
     
     //pre: tenemos una lista lista de datos T
     //post: obtenemos una lista vacía (inicio=null)
