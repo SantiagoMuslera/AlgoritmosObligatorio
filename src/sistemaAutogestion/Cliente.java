@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author Santiago
  */
-public class Cliente {
+public class Cliente implements Comparable <Cliente> {
     private String pasaporte; //alfanumerico, 7 caracteres
     private String nombre;
     private int edad;
@@ -61,9 +61,10 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "pasaporte=" + pasaporte + ", nombre=" + nombre + ", edad=" + edad + '}';
     }
-    
-    public int compareTo(Object cliente) {
-       Cliente otroCliente= (Cliente) cliente;
+
+    @Override
+    public int compareTo(Cliente cliente) {
+        Cliente otroCliente= (Cliente) cliente;
        return this.pasaporte.compareTo(otroCliente.pasaporte);
     }
 }

@@ -6,21 +6,32 @@ package sistemaAutogestion;
 
 import java.util.Objects;
 
-/**
- *
- * @author Santiago
- */
-//Las aerolineas tienen una lista de aviones.
+import tads.*;
 
-public class Aerolinea {
+public class Aerolinea implements Comparable <Aerolinea>{
     private String nombre;
     private String pais;
     private int cantMaxAviones;
+    private ListaConMaximo<Avion> aviones;
+
+    public ListaConMaximo<Avion> getAviones() {
+        return aviones;
+    }
+
+    public void setAviones(ListaConMaximo<Avion> aviones) {
+        this.aviones = aviones;
+    }
+    
+    public Aerolinea(String nombre){
+        this.nombre = nombre;
+    }
+    
     
     public Aerolinea(String nombre, String pais, int cantMaxAviones){
         this.nombre = nombre;
         this.pais = pais;
         this.cantMaxAviones = cantMaxAviones;
+        this.aviones = new ListaConMaximo(cantMaxAviones);
     }
 
     public String getNombre() {
@@ -63,8 +74,10 @@ public class Aerolinea {
         }
     }
     
-    public int compareTo(Object a) {
-       Aerolinea objetoAerolinea= (Aerolinea) a;
+
+    @Override
+    public int compareTo(Aerolinea o) {
+        Aerolinea objetoAerolinea= (Aerolinea) o;
        return this.nombre.compareTo(objetoAerolinea.nombre);
     }
 }
