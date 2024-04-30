@@ -43,12 +43,16 @@ public class Sistema implements IObligatorio {
         if (!this.listaAerolineas.estaElemento(new Aerolinea(nomAerolinea))) {
             return Retorno.error3();
         }
+        
         Aerolinea aero = (Aerolinea)this.listaAerolineas.obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
         
         Avion avion = new Avion(codigo,capacidadMax,nomAerolinea);
         //El codigo ya esta en la aerolinea
         if(aero.getAviones().estaElemento(avion)){
             return Retorno.error1();
+        }
+        if(!aero.SePuedeAgregarAvion()){
+            return Retorno.error4();
         }
         //finalmente si no esta en el codigo en la aerolinea se agrega el avion.
         aero.AgregarAvionAlInicio(avion);

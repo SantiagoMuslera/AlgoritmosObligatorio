@@ -76,6 +76,10 @@ public class Aerolinea implements Comparable <Aerolinea>{
         return this.aviones.mostrarLista();
     }
     
+    public boolean SePuedeAgregarAvion(){
+        return this.aviones.cantidadElementos() < this.cantMaxAviones;
+    }
+    
     @Override
     public String toString() {
         return this.nombre + "-"+this.pais+"-"+this.cantMaxAviones;
