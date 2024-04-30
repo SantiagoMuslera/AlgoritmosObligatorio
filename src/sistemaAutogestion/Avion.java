@@ -13,10 +13,30 @@ las aerolineas de los aviones. no se necesita este atributo de nomAerolinea
 public class Avion implements Comparable <Avion>{
     private String codigo;
     private int capacidadMax;
+    private String aerolinea;
+    private int cantPasajesVendidos;
+
+    public String getAerolinea() {
+        return aerolinea;
+    }
+
+    public void setAerolinea(String aerolinea) {
+        this.aerolinea = aerolinea;
+    }
+
+    public int getCantPasajes() {
+        return cantPasajesVendidos;
+    }
+
+    public void setCantPasajes(int cantPasajes) {
+        this.cantPasajesVendidos = cantPasajes;
+    }
     
-    public Avion (String codigo, int capacidadMax){
+    public Avion (String codigo, int capacidadMax,String aerolinea){
         this.codigo = codigo;
         this.capacidadMax = capacidadMax;
+        this.aerolinea = aerolinea;
+        this.cantPasajesVendidos = 0;
     }
     
     public Avion(String codigo){

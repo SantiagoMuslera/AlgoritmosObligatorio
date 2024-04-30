@@ -12,6 +12,8 @@ public class Aerolinea implements Comparable <Aerolinea>{
     private String nombre;
     private String pais;
     private int cantMaxAviones;
+    //private Lista<Piloto> pilotos;
+    private Lista<Vuelo> vuelos;
     private ListaConMaximo<Avion> aviones;
 
     public ListaConMaximo<Avion> getAviones() {
@@ -57,6 +59,11 @@ public class Aerolinea implements Comparable <Aerolinea>{
     public void setCantMaxAviones(int cantMaxAviones) {
         this.cantMaxAviones = cantMaxAviones;
     }
+    
+    public void EliminarAvion(Avion avion){
+        aviones.eliminarElemento(avion);
+    }
+    
     
     @Override
     public String toString() {

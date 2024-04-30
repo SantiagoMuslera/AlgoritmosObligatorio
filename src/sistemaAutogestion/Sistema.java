@@ -5,9 +5,11 @@ import java.util.*;
 public class Sistema implements IObligatorio {
     
     private Lista<Aerolinea> listaAerolineas;
+    private Lista<Cliente> listaClientes;
     
     public Sistema(){
         this.listaAerolineas = new Lista();
+        this.listaClientes = new Lista();
     }
     
     
@@ -43,7 +45,7 @@ public class Sistema implements IObligatorio {
         }
         Aerolinea aero = (Aerolinea)this.listaAerolineas.obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
         
-        Avion avion = new Avion(codigo,capacidadMax);
+        Avion avion = new Avion(codigo,capacidadMax,nomAerolinea);
         //El codigo ya esta en la aerolinea
         if(aero.getAviones().estaElemento(avion)){
             return Retorno.error1();
@@ -63,16 +65,15 @@ public class Sistema implements IObligatorio {
                 .obtenerElemento(new Aerolinea(nomAerolinea)).getDato();;
       
         //Si el codigo no esta dentro de la aerolinea
-        if(true/*Se busca dentro de la lista de aerolinea dentro de sus avione si tiene el avion*/){
+        if(aero.getAviones().estaElemento(new Avion(codAvion))){
             return Retorno.error2();
         }
-        /*
-        Avion avionbuscado = aero.Buscar(codAvion);
-        if(avionbuscado.size() >0{
+        Avion avionBuscado = (Avion)aero.getAviones()
+                .obtenerElemento(new Avion(codAvion)).getDato();
+        if(avionBuscado.getCantPasajes() > 0){
             return Retorno.error3();
         }
-        */
-        /*aero.EliminarAvion(codAvion);*/
+        aero.EliminarAvion(avionBuscado);
         return Retorno.ok();
     }
 

@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author Santiago
  */
-public class Vuelo {
+public class Vuelo implements Comparable <Vuelo>{
     
     private String codigoVuelo;
     private String aerolinea;
@@ -127,8 +127,9 @@ public class Vuelo {
         return "Vuelo{" + "codigoVuelo=" + codigoVuelo + ", aerolinea=" + aerolinea + ", codAvion=" + codAvion + ", paisDestino=" + paisDestino + ", dia=" + dia + ", mes=" + mes + ", anio=" + anio + ", cantPasajesEcon=" + cantPasajesEcon + ", cantPasajesPClase=" + cantPasajesPClase + '}';
     }
     
-    public int compareTo(Object vuelo) {
+    public int compareTo(Vuelo vuelo) {
        Vuelo otroVuelo= (Vuelo) vuelo;
        return this.codigoVuelo.compareTo(otroVuelo.codigoVuelo);
     }
+
 }
