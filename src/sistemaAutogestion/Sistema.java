@@ -52,13 +52,39 @@ public class Sistema implements IObligatorio {
         }
         //finalmente si no esta en el codigo en la aerolinea se agrega el avion.
         //aero.AddAvion(new Avion(codigo,capacidadMax));
-        return Retorno.noImplementada();
+        return Retorno.ok();
     }
 
     //1.5
     @Override
     public Retorno eliminarAvion(String nomAerolinea, String codAvion) {
-        return Retorno.noImplementada();
+        //simulacion de la lista de aerolineas(luego se elimina )
+        ArrayList<Aerolinea> aerolineas = new ArrayList<Aerolinea>();
+        if (!aerolineas.contains(nomAerolinea)) {
+            return Retorno.error1();
+        }
+        Aerolinea aero;
+        boolean found = false;
+        int i = 0;
+        while (!found && i<aerolineas.size()) {
+            if (aerolineas.get(i).getNombre() == nomAerolinea) {
+                aero = aerolineas.get(i);
+                found = true;
+            }
+            i++;
+        }
+        //Si el codigo no esta dentro de la aerolinea
+        if(true/*Se busca dentro de la lista de aerolinea dentro de sus avione si tiene el avion*/){
+            return Retorno.error2();
+        }
+        /*
+        Avion avionbuscado = aero.Buscar(codAvion);
+        if(avionbuscado.size() >0{
+            return Retorno.error3();
+        }
+        */
+        /*aero.EliminarAvion(codAvion);*/
+        return Retorno.ok();
     }
 
     //1.6
