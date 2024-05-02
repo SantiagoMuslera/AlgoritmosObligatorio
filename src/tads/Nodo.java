@@ -4,10 +4,7 @@
  */
 package tads;
 
-/**
- *
- * @author theic
- */
+
 public class Nodo <T extends Comparable <T>>{
      private T dato;
     private Nodo <T> siguiente;
