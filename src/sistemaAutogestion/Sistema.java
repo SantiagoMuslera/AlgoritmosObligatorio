@@ -16,7 +16,7 @@ public class Sistema implements IObligatorio {
     //1.1
     @Override
     public Retorno crearSistemaDeGestion() {
-        return Retorno.noImplementada();
+        return Retorno.ok();
     }
 
     //1.2
