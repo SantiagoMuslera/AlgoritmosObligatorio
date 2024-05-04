@@ -4,6 +4,8 @@
  */
 package sistemaAutogestion;
 
+import Dominio.Vuelo;
+import Dominio.Avion;
 import java.util.Objects;
 
 import tads.*;
