@@ -5,6 +5,7 @@
 package Dominio;
 
 import java.util.Objects;
+import tads.*;
 
 /**
  *
@@ -14,6 +15,7 @@ public class Cliente implements Comparable <Cliente> {
     private String pasaporte; //alfanumerico, 7 caracteres
     private String nombre;
     private int edad;
+    private Lista<Pasaje> pasajes;
     
     public Cliente(String pasaporte, String nombre, int edad){
         this.pasaporte = pasaporte;
@@ -45,7 +47,21 @@ public class Cliente implements Comparable <Cliente> {
         this.edad = edad;
     }
 
-   
+    public void EliminarPasaje(Pasaje pasaje){
+        this.pasajes.eliminarElemento(pasaje);
+    }
+    
+    public void AgregarPasajeAlInicio(Pasaje pasaje){
+        this.pasajes.agregarInicio(pasaje);
+    }
+    
+    public void AgregarPasajeAlFinal(Pasaje pasaje){
+        this.pasajes.agregarFinal(pasaje);
+    }
+    
+    public String MostrarListaPasajes(){
+        return this.pasajes.mostrarLista();
+    }
 
     @Override
     public boolean equals(Object cliente) {

@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author Santiago
  */
-public class Pasaje {
+public class Pasaje implements Comparable <Pasaje> {
     private String pasaporteCliente;
     private String codigoVuelo;
     private int categoriaPasaje;
@@ -57,5 +57,10 @@ public class Pasaje {
         }  
         Pasaje otroPasaje = (Pasaje)pasaje;
         return Objects.equals(this.codigoVuelo, otroPasaje.codigoVuelo);
+    }
+    
+    public int compareTo(Pasaje pasaje) {
+       Pasaje otroPasaje= (Pasaje) pasaje;
+       return this.codigoVuelo.compareTo(otroPasaje.codigoVuelo);
     }
 }
