@@ -1,6 +1,7 @@
 package sistemaAutogestion;
 import Dominio.Cliente;
 import Dominio.Avion;
+import Dominio.Aerolinea;
 import tads.*;
 import java.util.*;
 
