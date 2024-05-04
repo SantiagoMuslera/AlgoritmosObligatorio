@@ -7,13 +7,21 @@ package tads;
 public class PilaSimple<T extends Comparable<T>> implements IPila<T> {
 
     private Nodo<T> tope;
+
+    public T getTope() {
+        return tope.getDato();
+    }
+
     private int cantidad;
 
     @Override
     public void apilar(T dato) {
-        Nodo<T> nuevo = new Nodo(dato);
-        nuevo.setSiguiente(this.tope);
-        this.tope = nuevo;
+        if (dato != null) {
+            Nodo<T> nuevo = new Nodo(dato);
+            nuevo.setSiguiente(this.tope);
+            this.tope = nuevo;
+            this.cantidad++;
+        }
     }
 
     @Override
@@ -26,7 +34,7 @@ public class PilaSimple<T extends Comparable<T>> implements IPila<T> {
 
     @Override
     public Nodo<T> obtenerTope() {
-       return this.tope;
+        return this.tope;
     }
 
     @Override
@@ -37,6 +45,16 @@ public class PilaSimple<T extends Comparable<T>> implements IPila<T> {
     @Override
     public int cantidadElementos() {
         return this.cantidad;
+    }
+    
+    @Override
+    public String MostrarContenido(){
+        Nodo<T> actual = this.tope;
+        StringBuilder sb = new StringBuilder();
+        while(actual != null){
+            sb.append(actual).append("|");
+        }
+        return sb.toString();
     }
 
 }

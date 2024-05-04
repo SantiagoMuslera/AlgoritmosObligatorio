@@ -11,13 +11,14 @@ import tads.*;
  *
  * @author Santiago
  */
-public class Cliente implements Comparable <Cliente> {
+public class Cliente implements Comparable<Cliente> {
+
     private String pasaporte; //alfanumerico, 7 caracteres
     private String nombre;
     private int edad;
-    private Lista<Pasaje> pasajes;
-    
-    public Cliente(String pasaporte, String nombre, int edad){
+    private PilaSimple<Pasaje> pasajes;
+
+    public Cliente(String pasaporte, String nombre, int edad) {
         this.pasaporte = pasaporte;
         this.nombre = nombre;
         this.edad = edad;
@@ -47,30 +48,46 @@ public class Cliente implements Comparable <Cliente> {
         this.edad = edad;
     }
 
-    public void EliminarPasaje(Pasaje pasaje){
-        this.pasajes.eliminarElemento(pasaje);
+    public void EliminarUltimoPasaje() {
+        this.pasajes.desApilar();
     }
-    
-    public void AgregarPasajeAlInicio(Pasaje pasaje){
-        this.pasajes.agregarInicio(pasaje);
+
+    public void EliminarPasaje(Pasaje pasaje) {
+        Pasaje pasajeActual = this.pasajes.getTope();
+        PilaSimple<Pasaje> aux = new PilaSimple();
+        for (int i = 0; i < this.pasajes.cantidadElementos(); i++) {
+            if (pasaje.equals(pasajeActual)) {
+                this.pasajes.desApilar();
+            } else {
+                aux.apilar(pasajeActual);
+                this.pasajes.desApilar();
+            }
+            pasajeActual = (Pasaje)this.pasajes.getTope();
+        }
+        Pasaje pasajeAuxActual = aux.getTope();
+        for (int i = 0; i < aux.cantidadElementos(); i++) {
+            this.pasajes.apilar(pasajeAuxActual);
+            aux.desApilar();
+            pasajeAuxActual = aux.getTope();
+        }
     }
-    
-    public void AgregarPasajeAlFinal(Pasaje pasaje){
-        this.pasajes.agregarFinal(pasaje);
+
+    public void AgregarPasajeAlInicio(Pasaje pasaje) {
+        this.pasajes.apilar(pasaje);
     }
-    
-    public String MostrarListaPasajes(){
-        return this.pasajes.mostrarLista();
+
+    public String MostrarListaPasajes() {
+        return this.pasajes.MostrarContenido();
     }
 
     @Override
     public boolean equals(Object cliente) {
-       if(!this.getClass().equals(cliente.getClass())){
-           return false;
-       }else{
-           Cliente otroCliente = (Cliente) cliente;
-           return this.pasaporte == otroCliente.pasaporte;
-       }
+        if (!this.getClass().equals(cliente.getClass())) {
+            return false;
+        } else {
+            Cliente otroCliente = (Cliente) cliente;
+            return this.pasaporte == otroCliente.pasaporte;
+        }
     }
 
     @Override
@@ -80,7 +97,7 @@ public class Cliente implements Comparable <Cliente> {
 
     @Override
     public int compareTo(Cliente cliente) {
-        Cliente otroCliente= (Cliente) cliente;
-       return this.pasaporte.compareTo(otroCliente.pasaporte);
+        Cliente otroCliente = (Cliente) cliente;
+        return this.pasaporte.compareTo(otroCliente.pasaporte);
     }
 }

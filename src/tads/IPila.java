@@ -16,4 +16,6 @@ public interface IPila <T extends Comparable <T>>{
     
     public int cantidadElementos();
     
+    public String MostrarContenido();
+    
 }
