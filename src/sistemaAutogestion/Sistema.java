@@ -18,20 +18,38 @@ public class Sistema implements IObligatorio {
     //1.1
     @Override
     public Retorno crearSistemaDeGestion() {
+        Lista<Aerolinea> listaAerolineas = new Lista();
+        Lista<Cliente> listaClientes = new Lista();
         return Retorno.ok();
     }
 
     //1.2
     @Override
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones) {
-        int a = 5;
-        return Retorno.noImplementada();
+        Aerolinea aerolinea = new Aerolinea(nombre, pais, cantMaxAviones);
+       if(listaAerolineas.estaElemento(aerolinea)){
+           return Retorno.error1();
+       }
+       if(cantMaxAviones<=0){
+           return Retorno.error2();
+       }
+       listaAerolineas.agregarFinal(aerolinea);
+        return Retorno.ok();
     }
 
     //1.3
     @Override
     public Retorno eliminarAerolinea(String nombre) {
-        return Retorno.noImplementada();
+        Aerolinea aerolinea = new Aerolinea(nombre);
+        if(!listaAerolineas.estaElemento(aerolinea)){
+            return Retorno.error1();
+        }
+        int cantAviones = aerolinea.getAviones().cantidadElementos();
+        if(cantAviones > 0){
+            return Retorno.error2();
+        }
+        listaAerolineas.eliminarElemento(aerolinea);
+        return Retorno.ok();
     }
 
     //1.4
