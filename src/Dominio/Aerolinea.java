@@ -26,7 +26,7 @@ public class Aerolinea implements Comparable <Aerolinea>{
     
     public Aerolinea(String nombre){
         this.nombre = nombre;
-    }
+    } 
     
     
     public Aerolinea(String nombre, String pais, int cantMaxAviones){
