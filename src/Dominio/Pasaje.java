@@ -13,12 +13,12 @@ import java.util.Objects;
 public class Pasaje {
     private String pasaporteCliente;
     private String codigoVuelo;
-    private int categoríaPasaje;
+    private int categoriaPasaje;
     
     public Pasaje (String pasaporteCliente, String codigoVuelo, int categoriaPasaje){
         this.pasaporteCliente = pasaporteCliente;
         this.codigoVuelo = codigoVuelo;
-        this.categoríaPasaje = categoriaPasaje;
+        this.categoriaPasaje = categoriaPasaje;
     }
 
     public String getPasaporteCliente() {
@@ -38,16 +38,16 @@ public class Pasaje {
     }
 
     public int getCategoríaPasaje() {
-        return categoríaPasaje;
+        return categoriaPasaje;
     }
 
     public void setCategoríaPasaje(int categoríaPasaje) {
-        this.categoríaPasaje = categoríaPasaje;
+        this.categoriaPasaje = categoríaPasaje;
     }
 
     @Override
     public String toString() {
-        return "Pasaje{" + "pasaporteCliente=" + pasaporteCliente + ", codigoVuelo=" + codigoVuelo + ", categor\u00edaPasaje=" + categoríaPasaje + '}';
+        return "Pasaje{" + "pasaporteCliente=" + pasaporteCliente + ", codigoVuelo=" + codigoVuelo + ", categor\u00edaPasaje=" + categoriaPasaje + '}';
     }
 
     @Override
