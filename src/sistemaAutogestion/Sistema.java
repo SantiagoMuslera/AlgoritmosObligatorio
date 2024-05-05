@@ -96,9 +96,11 @@ public class Sistema implements IObligatorio {
         }
         Avion avionBuscado = (Avion)aero.getAviones()
                 .obtenerElemento(new Avion(codAvion)).getDato();
-        if(avionBuscado.getCantPasajes() > 0){
+        
+        if(aero.hayPasajesVendidosEnAvion(avionBuscado)){
             return Retorno.error3();
         }
+        
         aero.EliminarAvion(avionBuscado);
         return Retorno.ok();
     }

@@ -8,7 +8,8 @@ import java.util.Objects;
 
 import tads.*;
 
-public class Aerolinea implements Comparable <Aerolinea>{
+public class Aerolinea implements Comparable<Aerolinea> {
+
     private String nombre;
     private String pais;
     private int cantMaxAviones;
@@ -23,13 +24,12 @@ public class Aerolinea implements Comparable <Aerolinea>{
     public void setAviones(ListaConMaximo<Avion> aviones) {
         this.aviones = aviones;
     }
-    
-    public Aerolinea(String nombre){
+
+    public Aerolinea(String nombre) {
         this.nombre = nombre;
-    } 
-    
-    
-    public Aerolinea(String nombre, String pais, int cantMaxAviones){
+    }
+
+    public Aerolinea(String nombre, String pais, int cantMaxAviones) {
         this.nombre = nombre;
         this.pais = pais;
         this.cantMaxAviones = cantMaxAviones;
@@ -59,52 +59,74 @@ public class Aerolinea implements Comparable <Aerolinea>{
     public void setCantMaxAviones(int cantMaxAviones) {
         this.cantMaxAviones = cantMaxAviones;
     }
-    
-    public void EliminarAvion(Avion avion){
+
+    public void EliminarAvion(Avion avion) {
         this.aviones.eliminarElemento(avion);
     }
-    
-    public void AgregarAvionAlInicio(Avion avion){
+
+    public void AgregarAvionAlInicio(Avion avion) {
         this.aviones.agregarInicio(avion);
     }
-    
-    public void AgregarAvionAlFinal(Avion avion){
+
+    public void AgregarAvionAlFinal(Avion avion) {
         this.aviones.agregarFinal(avion);
     }
-    
-    public String MostrarListaAviones(){
+
+    public String MostrarListaAviones() {
         return this.aviones.mostrarLista();
     }
-    
-    public boolean SePuedeAgregarAvion(){
+
+    public boolean SePuedeAgregarAvion() {
         return this.aviones.cantidadElementos() < this.cantMaxAviones;
     }
-    
-    public int cantidadAviones(){
+
+    public int cantidadAviones() {
         return this.aviones.cantidadElementos();
     }
-    
-    @Override
-    public String toString() {
-        return this.nombre + "-"+this.pais+"-"+this.cantMaxAviones;
+
+    public int cantidadPasajesVendidoAvion(Avion avion) {
+        int totalPasajes = 0;
+        Nodo<Vuelo> vueloActual = vuelos.getInicio();
+        while (vueloActual != null) {
+            if (vueloActual.getDato().getCodAvion() == avion.getCodigo()) {
+                totalPasajes += vueloActual.getDato().getTotalPasajesVendidos();
+            }
+            vueloActual = vueloActual.getSiguiente();
+        }
+        return totalPasajes;
     }
     
+    public boolean hayPasajesVendidosEnAvion(Avion avion){
+        boolean hayPasajes = false;
+        Nodo<Vuelo> vueloActual = vuelos.getInicio();
+        while (vueloActual != null && !hayPasajes) {
+            if (vueloActual.getDato().getCodAvion() == avion.getCodigo() && vueloActual.getDato().getTotalPasajesVendidos()>0) {
+                hayPasajes = true;
+            }
+            vueloActual = vueloActual.getSiguiente();
+        }
+        return hayPasajes;
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre + "-" + this.pais + "-" + this.cantMaxAviones;
+    }
+
     @Override
     public boolean equals(Object a) {
         if (!this.getClass().equals(a.getClass())) {
             return false;
         } else {
-            Aerolinea aerolinea=(Aerolinea) a;
-            
-        return this.nombre==aerolinea.getNombre();
+            Aerolinea aerolinea = (Aerolinea) a;
+
+            return this.nombre == aerolinea.getNombre();
         }
     }
-    
-    
 
     @Override
     public int compareTo(Aerolinea o) {
-        Aerolinea objetoAerolinea= (Aerolinea) o;
-       return this.nombre.compareTo(objetoAerolinea.nombre);
+        Aerolinea objetoAerolinea = (Aerolinea) o;
+        return this.nombre.compareTo(objetoAerolinea.nombre);
     }
 }

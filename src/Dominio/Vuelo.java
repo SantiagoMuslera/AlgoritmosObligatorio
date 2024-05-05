@@ -5,6 +5,8 @@
 package Dominio;
 
 import java.util.Objects;
+import tads.Lista;
+import tads.ListaConMaximo;
 
 /**
  *
@@ -19,9 +21,8 @@ public class Vuelo implements Comparable <Vuelo>{
     private int dia;
     private int mes;
     private int anio;
-    private int cantPasajesEcon;
-    private int cantPasajesPClase;
-
+    private ListaConMaximo<Pasaje> pasajesEconomicos;
+    private ListaConMaximo<Pasaje> pasajesPrimeraClase;
    
     
     public Vuelo (String codigoVuelo, String aerolinea,String codAvion, String paisDestino, int dia, int mes,int anio,int cantPasajesEcon, int cantPasajesPClase)
@@ -33,16 +34,30 @@ public class Vuelo implements Comparable <Vuelo>{
         this.dia = dia;
         this.mes = mes;
         this.anio = anio;
-        this.cantPasajesEcon =cantPasajesEcon;
-        this.cantPasajesPClase = cantPasajesPClase;
+        this.pasajesEconomicos = new ListaConMaximo<Pasaje>(cantPasajesEcon);
+        this.pasajesPrimeraClase = new ListaConMaximo<Pasaje>(cantPasajesPClase);
     }
-
+    
+    public int getTotalPasajesVendidos(){
+        return this.pasajesEconomicos.getCantidad() 
+                + this.pasajesPrimeraClase.getCantidad();
+    }
+    
+    
     public String getCodigoVuelo() {
         return codigoVuelo;
     }
 
     public void setCodigoVuelo(String codigoVuelo) {
         this.codigoVuelo = codigoVuelo;
+    }
+    
+    public void AgregarPasaje(Pasaje pasaje){
+        if(pasaje.getCategoríaPasaje() == 1){
+            this.pasajesEconomicos.agregarInicio(pasaje);
+        }else{
+            this.pasajesPrimeraClase.agregarInicio(pasaje);
+        }
     }
 
     public String getAerolinea() {
@@ -93,21 +108,6 @@ public class Vuelo implements Comparable <Vuelo>{
         this.anio = anio;
     }
 
-    public int getCantPasajesEcon() {
-        return cantPasajesEcon;
-    }
-
-    public void setCantPasajesEcon(int cantPasajesEcon) {
-        this.cantPasajesEcon = cantPasajesEcon;
-    }
-
-    public int getCantPasajesPClase() {
-        return cantPasajesPClase;
-    }
-
-    public void setCantPasajesPClase(int cantPasajesPClase) {
-        this.cantPasajesPClase = cantPasajesPClase;
-    }
 
     
 
@@ -124,7 +124,12 @@ public class Vuelo implements Comparable <Vuelo>{
     
      @Override
     public String toString() {
-        return "Vuelo{" + "codigoVuelo=" + codigoVuelo + ", aerolinea=" + aerolinea + ", codAvion=" + codAvion + ", paisDestino=" + paisDestino + ", dia=" + dia + ", mes=" + mes + ", anio=" + anio + ", cantPasajesEcon=" + cantPasajesEcon + ", cantPasajesPClase=" + cantPasajesPClase + '}';
+        return "Vuelo{" + "codigoVuelo=" + codigoVuelo + ", aerolinea=" + 
+                aerolinea + ", codAvion=" + codAvion + ", paisDestino=" + 
+                paisDestino + ", dia=" + dia + ", mes=" + mes + ", anio=" 
+                + anio + ", cantPasajesEcon=" +
+                this.pasajesEconomicos.getCantidad() + ", cantPasajesPClase=" +
+                this.pasajesPrimeraClase.getCantidad() + '}';
     }
     
     public int compareTo(Vuelo vuelo) {

@@ -1,7 +1,6 @@
-
 package tads;
 
-public class Lista <T extends Comparable<T>> implements ILista<T> {
+public class Lista<T extends Comparable<T>> implements ILista<T> {
 
     private Nodo<T> inicio;
 
@@ -43,7 +42,7 @@ public class Lista <T extends Comparable<T>> implements ILista<T> {
     public String mostrarLista() {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
-        while(actual != null){
+        while (actual != null) {
             sb.append(actual.getDato()).append('|');
             actual = actual.getSiguiente();
         }
@@ -60,28 +59,28 @@ public class Lista <T extends Comparable<T>> implements ILista<T> {
     @Override
     public void agregarInicio(T dato) {
         Nodo nuevoNodo = new Nodo(dato);
-            if (this.inicio == null) {
-                this.inicio = nuevoNodo;
-                this.fin = nuevoNodo;
-            } else {
-                nuevoNodo.setSiguiente(inicio);
-                this.inicio = nuevoNodo;
-            }
-            this.cantidad++;
-        
+        if (this.inicio == null) {
+            this.inicio = nuevoNodo;
+            this.fin = nuevoNodo;
+        } else {
+            nuevoNodo.setSiguiente(inicio);
+            this.inicio = nuevoNodo;
+        }
+        this.cantidad++;
+
     }
 
     @Override
     public void agregarFinal(T dato) {
-            if (this.cantidad == 0) {
-                agregarInicio(dato);
-            } else {
-                Nodo nuevoNodo = new Nodo(dato);
-                this.fin.setSiguiente(nuevoNodo);
-                this.fin = nuevoNodo;
-                this.cantidad++;
-            }
-        
+        if (this.cantidad == 0) {
+            agregarInicio(dato);
+        } else {
+            Nodo nuevoNodo = new Nodo(dato);
+            this.fin.setSiguiente(nuevoNodo);
+            this.fin = nuevoNodo;
+            this.cantidad++;
+        }
+
     }
 
     @Override
@@ -156,7 +155,24 @@ public class Lista <T extends Comparable<T>> implements ILista<T> {
 
     @Override
     public void agregarOrdenado(T x) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Nodo<T> actual = this.inicio;
+        Nodo<T> nuevoNodo = new Nodo(x);
+        boolean noAgregado = true;
+        while (actual != null && noAgregado) {
+            if (actual.getSiguiente() == null) {
+                actual.setSiguiente(nuevoNodo);
+                noAgregado = false;
+            } else {
+                if (actual.getSiguiente().getDato().compareTo(x) < 0) {
+                    actual = actual.getSiguiente();
+                } else {
+                    nuevoNodo.setSiguiente(actual.getSiguiente());
+                    actual.setSiguiente(nuevoNodo);
+                    noAgregado = false;
+                }
+            }
+
+        }
     }
 
     @Override
