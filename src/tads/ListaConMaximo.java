@@ -1,7 +1,7 @@
 package tads;
 
-
 public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
+
     private Nodo<T> inicio;
 
     private int cantidadMaxima;
@@ -61,7 +61,7 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
     public String mostrarLista() {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
-        while(actual != null){
+        while (actual != null) {
             sb.append(actual.getDato()).append('|');
             actual = actual.getSiguiente();
         }
@@ -171,12 +171,33 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
                     }
                 }
             }
+            this.cantidad--;
         }
     }
 
     @Override
     public void agregarOrdenado(T x) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (this.cantidad < this.cantidadMaxima) {
+            Nodo<T> actual = this.inicio;
+            Nodo<T> nuevoNodo = new Nodo(x);
+            boolean noAgregado = true;
+            while (actual != null && noAgregado) {
+                if (actual.getSiguiente() == null) {
+                    actual.setSiguiente(nuevoNodo);
+                    noAgregado = false;
+                } else {
+                    if (actual.getSiguiente().getDato().compareTo(x) < 0) {
+                        actual = actual.getSiguiente();
+                    } else {
+                        nuevoNodo.setSiguiente(actual.getSiguiente());
+                        actual.setSiguiente(nuevoNodo);
+                        noAgregado = false;
+                    }
+                }
+            }
+            this.cantidad++;
+        }
+
     }
 
     @Override

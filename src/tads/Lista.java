@@ -150,6 +150,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
                     }
                 }
             }
+            this.cantidad--;
         }
     }
 
@@ -171,8 +172,8 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
                     noAgregado = false;
                 }
             }
-
         }
+        this.cantidad++;
     }
 
     @Override
