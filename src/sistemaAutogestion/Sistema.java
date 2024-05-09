@@ -3,7 +3,6 @@ import Dominio.Cliente;
 import Dominio.Avion;
 import Dominio.Aerolinea;
 import tads.*;
-import java.util.*;
 
 public class Sistema implements IObligatorio {
     
@@ -19,8 +18,8 @@ public class Sistema implements IObligatorio {
     //1.1
     @Override
     public Retorno crearSistemaDeGestion() {
-        Lista<Aerolinea> listaAerolineas = new Lista();
-        Lista<Cliente> listaClientes = new Lista();
+        this.listaAerolineas = new Lista<>();
+        this.listaClientes = new Lista<>();
         return Retorno.ok();
     }
 
@@ -108,7 +107,18 @@ public class Sistema implements IObligatorio {
     //1.6
     @Override
     public Retorno registrarCliente(String pasaporte, String nombre, int edad) {
-        return Retorno.noImplementada();
+        Cliente nuevocliente = new Cliente(pasaporte,nombre,edad);
+        if(edad<0){
+            return Retorno.error1();
+        }
+        if(pasaporte.length() != 7){
+            return Retorno.error2();
+        }
+        if(listaClientes.estaElemento(nuevocliente)){
+            return Retorno.error3();
+        }
+        listaClientes.agregarInicio(nuevocliente);
+        return Retorno.ok();
     }
 
     //1.7

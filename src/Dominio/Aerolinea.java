@@ -14,6 +14,7 @@ public class Aerolinea implements Comparable<Aerolinea> {
     private String pais;
     private int cantMaxAviones;
     //private Lista<Piloto> pilotos;
+    private Lista<Pasaje> pasajesDevueltos;
     private Lista<Vuelo> vuelos;
     private ListaConMaximo<Avion> aviones;
 

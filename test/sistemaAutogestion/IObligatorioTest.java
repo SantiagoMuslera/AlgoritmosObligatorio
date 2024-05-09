@@ -1,32 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package sistemaAutogestion;
 
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author pesce
- */
 public class IObligatorioTest {
     
     private Sistema miSistema;
     
     public IObligatorioTest() {
+        
     }
     
     @Before
     public void setUp() {
-        //Completar para primera entrega
+        miSistema = new Sistema();
     }
 
     @Test
     public void testCrearSistemaDeGestion() {
         //Completar para primera entrega
+        Retorno re = this.miSistema.crearSistemaDeGestion();
+        assertEquals(Retorno.ok().resultado,re.resultado);
     }
 
     @Test

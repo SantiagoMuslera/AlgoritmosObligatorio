@@ -21,6 +21,7 @@ public class Vuelo implements Comparable <Vuelo>{
     private int dia;
     private int mes;
     private int anio;
+    private Lista<Pasaje> enEspera;
     private ListaConMaximo<Pasaje> pasajesEconomicos;
     private ListaConMaximo<Pasaje> pasajesPrimeraClase;
    
