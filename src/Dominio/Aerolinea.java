@@ -34,7 +34,9 @@ public class Aerolinea implements Comparable<Aerolinea> {
         this.nombre = nombre;
         this.pais = pais;
         this.cantMaxAviones = cantMaxAviones;
-        this.aviones = new ListaConMaximo(cantMaxAviones);
+        this.aviones = new ListaConMaximo<Avion>(cantMaxAviones);
+        this.vuelos = new Lista<Vuelo>();
+        this.pasajesDevueltos = new Lista<Pasaje>();
     }
 
     public String getNombre() {

@@ -26,6 +26,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
 
     public Lista() {
         this.inicio = null;
+        this.fin = null;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
         while (actual != null) {
-            sb.append(actual.getDato()).append('|');
+            sb.append(actual.getDato().toString()).append("|").append("\n");
             actual = actual.getSiguiente();
         }
         return sb.toString();
@@ -58,7 +59,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
 
     @Override
     public void agregarInicio(T dato) {
-        Nodo nuevoNodo = new Nodo(dato);
+        Nodo<T> nuevoNodo = new Nodo(dato);
         if (this.inicio == null) {
             this.inicio = nuevoNodo;
             this.fin = nuevoNodo;
@@ -75,7 +76,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         if (this.cantidad == 0) {
             agregarInicio(dato);
         } else {
-            Nodo nuevoNodo = new Nodo(dato);
+            Nodo<T> nuevoNodo = new Nodo(dato);
             this.fin.setSiguiente(nuevoNodo);
             this.fin = nuevoNodo;
             this.cantidad++;
@@ -190,7 +191,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
             }
             return nodoactual;
         }
-        return null;
+        return new Nodo<T>(x);
     }
 
 }

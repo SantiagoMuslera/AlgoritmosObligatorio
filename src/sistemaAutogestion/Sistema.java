@@ -27,14 +27,14 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones) {
         Aerolinea aerolinea = new Aerolinea(nombre, pais, cantMaxAviones);
-       if(listaAerolineas.estaElemento(aerolinea)){
+       if(this.listaAerolineas.estaElemento(aerolinea)){
            return Retorno.error1();
        }
        if(cantMaxAviones<=0){
            return Retorno.error2();
        }
-       listaAerolineas.agregarFinal(aerolinea);
-        return Retorno.ok();
+       this.listaAerolineas.agregarFinal(aerolinea);
+       return Retorno.ok();
     }
 
     //1.3
@@ -90,7 +90,7 @@ public class Sistema implements IObligatorio {
                 .obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
       
         //Si el codigo no esta dentro de la aerolinea
-        if(aero.getAviones().estaElemento(new Avion(codAvion))){
+        if(!aero.getAviones().estaElemento(new Avion(codAvion))){
             return Retorno.error2();
         }
         Avion avionBuscado = (Avion)aero.getAviones()
@@ -142,7 +142,8 @@ public class Sistema implements IObligatorio {
     //2.1
     @Override
     public Retorno listarAerolineas() {
-        return Retorno.ok(this.listaAerolineas.mostrarLista());
+        String message = this.listaAerolineas.mostrarLista();
+        return Retorno.ok(message);
     }
 
     //2.2
@@ -150,7 +151,7 @@ public class Sistema implements IObligatorio {
     public Retorno listarAvionesDeAerolinea(String nombre) {
         Aerolinea aero = (Aerolinea)this.listaAerolineas
                 .obtenerElemento(new Aerolinea(nombre)).getDato();
-        if(aero==null){
+        if(!this.listaAerolineas.estaElemento(aero)){
             return Retorno.error1();
         }
         return Retorno.ok(aero.MostrarListaAviones());

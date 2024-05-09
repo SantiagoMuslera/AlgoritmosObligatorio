@@ -52,7 +52,7 @@ public class PilaSimple<T extends Comparable<T>> implements IPila<T> {
         Nodo<T> actual = this.tope;
         StringBuilder sb = new StringBuilder();
         while(actual != null){
-            sb.append(actual).append("|");
+            sb.append(actual).append("|").append("\n");
         }
         return sb.toString();
     }
