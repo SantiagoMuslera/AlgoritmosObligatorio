@@ -11,11 +11,7 @@ public class IObligatorioTest {
     public IObligatorioTest() {
         
     }
-    /*
-    @Before
-    public void setUp() {
-        miSistema = new Sistema();
-    }
+    
 
     @Test
     public void testCrearSistemaDeGestion() {
@@ -43,7 +39,16 @@ public class IObligatorioTest {
     public void testEliminarAvion() {
         //Completar para primera entrega
     }
+    @Test
+    public void testListarAerolineas1() {
+        //Completar para primera entrega
+    }
 
+    @Test
+    public void testListarAvionesDeAerolinea1() {
+        //Completar para primera entrega
+    }
+/*
     @Test
     public void testRegistrarCliente() {
         //Completar para segunda entrega
@@ -62,16 +67,6 @@ public class IObligatorioTest {
     @Test
     public void testDevolverPasaje() {
         //Completar para segunda entrega
-    }
-
-    @Test
-    public void testListarAerolineas() {
-        //Completar para primera entrega
-    }
-
-    @Test
-    public void testListarAvionesDeAerolinea() {
-        //Completar para primera entrega
     }
 
     @Test
@@ -290,7 +285,7 @@ public class IObligatorioTest {
 
 
     @Test
-    public void testListarAerolineas() {
+    public void testListarAerolineas2() {
         Retorno r = miSistema.crearAerolinea("Aerolineas Argentinas", "Argentina", 10);
         assertEquals(Retorno.ok().resultado, r.resultado);
         r = miSistema.crearAerolinea("Iberia", "España", 20);
@@ -304,7 +299,7 @@ public class IObligatorioTest {
     }
 
     @Test
-    public void testListarAvionesDeAerolinea() {
+    public void testListarAvionesDeAerolinea2() {
         Retorno r = miSistema.crearAerolinea("Aerolineas Argentinas", "Argentina", 10);
         assertEquals(Retorno.ok().resultado, r.resultado);
         r = miSistema.crearAerolinea("Iberia", "España", 20);

@@ -1,17 +1,18 @@
 package sistemaAutogestion;
-import Dominio.Cliente;
-import Dominio.Avion;
-import Dominio.Aerolinea;
+
+import Dominio.*;
 import tads.*;
 
 public class Sistema implements IObligatorio {
     
     private Lista<Aerolinea> listaAerolineas;
     private Lista<Cliente> listaClientes;
+    private Lista<Vuelo> listaVuelos;
     
     public Sistema(){
         this.listaAerolineas = new Lista();
         this.listaClientes = new Lista();
+        this.listaVuelos = new Lista();
     }
     
     
@@ -20,6 +21,7 @@ public class Sistema implements IObligatorio {
     public Retorno crearSistemaDeGestion() {
         this.listaAerolineas = new Lista<>();
         this.listaClientes = new Lista<>();
+        this.listaVuelos = new Lista<>();
         return Retorno.ok();
     }
 
