@@ -55,18 +55,24 @@ public interface IObligatorio {
     */
     
      /*
-    pre:
-    post:
+    pre:Recibe un codigoVuelo, que sea nuevo para la aerolinea,
+    una aerolinea,que debe ser existente,
+    un codAvion, de un avion que tenga la aerolinea,
+    un paisDestino valido, una fecha(dia, mes y año) valida, 
+    cantPasajesEcon y cantPasajesPClase no nulos, donde cantPasajesEcon y cantPasajesPClase
+    debe ser mayor a 3 y multiplo 3,
+    post:Retona ok si el vuelo se creo exitosamente.
     */
     public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int año, int cantPasajesEcon, int cantPasajesPClase);
      /*
-    pre:
-    post:
+    pre:Recibe un pasaporte, un codigo de vuelo y la categoria(1-economica,
+    2-Primera Clase) no nulos.
+    post:Retona ok en caso se registro el pasaje o si esta en la lista de espera.
     */
     public Retorno comprarPasaje(String pasaporteCliente, String codigoVuelo, int categoríaPasaje);
      /*
-    pre:
-    post:
+    pre:Recibe un pasaporte y el codigo de vuelo no nulos.
+    post:Retona ok en caso se devolvio el pasaje correctamente.
     */
     public Retorno devolverPasaje(String pasaporteCliente, String codigoVuelo);
 

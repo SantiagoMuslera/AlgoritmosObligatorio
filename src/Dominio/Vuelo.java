@@ -5,7 +5,7 @@
 package Dominio;
 
 import java.util.Objects;
-import tads.Lista;
+import tads.*;
 import tads.ListaConMaximo;
 
 /**
@@ -21,7 +21,8 @@ public class Vuelo implements Comparable <Vuelo>{
     private int dia;
     private int mes;
     private int anio;
-    private Lista<Pasaje> enEspera;
+    private Cola<Pasaje> pasajesPrimeraClaseEnEspera;
+    private Cola<Pasaje> pasajesEconomicosEnEspera;
     private ListaConMaximo<Pasaje> pasajesEconomicos;
     private ListaConMaximo<Pasaje> pasajesPrimeraClase;
    
@@ -35,8 +36,8 @@ public class Vuelo implements Comparable <Vuelo>{
         this.dia = dia;
         this.mes = mes;
         this.anio = anio;
-        this.pasajesEconomicos = new ListaConMaximo<Pasaje>(cantPasajesEcon);
-        this.pasajesPrimeraClase = new ListaConMaximo<Pasaje>(cantPasajesPClase);
+        this.pasajesEconomicos = new ListaConMaximo<>(cantPasajesEcon);
+        this.pasajesPrimeraClase = new ListaConMaximo<>(cantPasajesPClase);
     }
     
     public int getTotalPasajesVendidos(){
