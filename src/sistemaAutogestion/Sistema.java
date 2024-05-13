@@ -125,8 +125,38 @@ public class Sistema implements IObligatorio {
 
     //1.7
     @Override
-    public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int año, int cantPasajesEcon, int cantPasajesPClase) {
-        return Retorno.noImplementada();
+    public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion,
+            String paisDestino, int dia, int mes, int año, int cantPasajesEcon,
+            int cantPasajesPClase) {
+        if(this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
+            return Retorno.error1();
+        }
+        if(!this.listaAerolineas.estaElemento(new Aerolinea(aerolinea))){
+            return Retorno.error2();
+        }
+        Aerolinea aero = this.listaAerolineas.obtenerElemento(new Aerolinea(aerolinea)).getDato();
+        Avion avion = aero.encontrarAvion(codAvion);
+        if(avion.getCapacidadMax() > cantPasajesEcon+cantPasajesPClase){
+            int diff = avion.getCapacidadMax()-(cantPasajesEcon+cantPasajesPClase);
+            cantPasajesEcon+=diff;
+        }else{
+            if(cantPasajesEcon+cantPasajesPClase>avion.getCapacidadMax()){
+                return Retorno.error6();
+            }
+        }
+        if(aero.avionExiste(codAvion)){
+            return Retorno.error3();
+        }
+        if(aero.existeVueloSegunFechaYAvion(codAvion,  dia, mes, año)){
+            return Retorno.error4();
+        }
+        if(cantPasajesEcon%3 != 0 || cantPasajesPClase%3!=0){
+            return Retorno.error5();
+        }
+        Vuelo nuevoVuelo = new Vuelo(codigoVuelo,aerolinea,codAvion,paisDestino,dia,mes,año,cantPasajesEcon,cantPasajesPClase);
+        aero.agregarVuelo(nuevoVuelo);
+        this.listaVuelos.agregarInicio(nuevoVuelo);
+        return Retorno.ok();
     }
 
     //1.8

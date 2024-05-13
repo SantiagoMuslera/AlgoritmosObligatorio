@@ -12,8 +12,8 @@ import tads.ListaConMaximo;
  *
  * @author Santiago
  */
-public class Vuelo implements Comparable <Vuelo>{
-    
+public class Vuelo implements Comparable<Vuelo> {
+
     private String codigoVuelo;
     private String aerolinea;
     private String codAvion;
@@ -25,10 +25,12 @@ public class Vuelo implements Comparable <Vuelo>{
     private Cola<Pasaje> pasajesEconomicosEnEspera;
     private ListaConMaximo<Pasaje> pasajesEconomicos;
     private ListaConMaximo<Pasaje> pasajesPrimeraClase;
-   
     
-    public Vuelo (String codigoVuelo, String aerolinea,String codAvion, String paisDestino, int dia, int mes,int anio,int cantPasajesEcon, int cantPasajesPClase)
-    {
+    public Vuelo(String codigoVuelo){
+        this.codigoVuelo = codigoVuelo;
+    }
+    
+    public Vuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int anio, int cantPasajesEcon, int cantPasajesPClase) {
         this.codigoVuelo = codigoVuelo;
         this.aerolinea = aerolinea;
         this.codAvion = codAvion;
@@ -38,14 +40,16 @@ public class Vuelo implements Comparable <Vuelo>{
         this.anio = anio;
         this.pasajesEconomicos = new ListaConMaximo<>(cantPasajesEcon);
         this.pasajesPrimeraClase = new ListaConMaximo<>(cantPasajesPClase);
+        this.pasajesEconomicosEnEspera = new Cola();
+        this.pasajesPrimeraClaseEnEspera = new Cola();
+
     }
-    
-    public int getTotalPasajesVendidos(){
-        return this.pasajesEconomicos.getCantidad() 
+
+    public int getTotalPasajesVendidos() {
+        return this.pasajesEconomicos.getCantidad()
                 + this.pasajesPrimeraClase.getCantidad();
     }
-    
-    
+
     public String getCodigoVuelo() {
         return codigoVuelo;
     }
@@ -53,11 +57,11 @@ public class Vuelo implements Comparable <Vuelo>{
     public void setCodigoVuelo(String codigoVuelo) {
         this.codigoVuelo = codigoVuelo;
     }
-    
-    public void AgregarPasaje(Pasaje pasaje){
-        if(pasaje.getCategoríaPasaje() == 1){
+
+    public void AgregarPasaje(Pasaje pasaje) {
+        if (pasaje.getCategoríaPasaje() == 1) {
             this.pasajesEconomicos.agregarInicio(pasaje);
-        }else{
+        } else {
             this.pasajesPrimeraClase.agregarInicio(pasaje);
         }
     }
@@ -110,33 +114,30 @@ public class Vuelo implements Comparable <Vuelo>{
         this.anio = anio;
     }
 
-
-    
-
     @Override
     public boolean equals(Object vuelo) {
-   
+
         if (!this.getClass().equals(vuelo.getClass())) {
             return false;
-        }else{
-           Vuelo otroVuelo = (Vuelo) vuelo;
-        return this.codigoVuelo == otroVuelo.codigoVuelo; 
-        } 
+        } else {
+            Vuelo otroVuelo = (Vuelo) vuelo;
+            return this.codigoVuelo == otroVuelo.codigoVuelo;
+        }
     }
-    
-     @Override
+
+    @Override
     public String toString() {
-        return "Vuelo{" + "codigoVuelo=" + codigoVuelo + ", aerolinea=" + 
-                aerolinea + ", codAvion=" + codAvion + ", paisDestino=" + 
-                paisDestino + ", dia=" + dia + ", mes=" + mes + ", anio=" 
-                + anio + ", cantPasajesEcon=" +
-                this.pasajesEconomicos.getCantidad() + ", cantPasajesPClase=" +
-                this.pasajesPrimeraClase.getCantidad() + '}';
+        return "Vuelo{" + "codigoVuelo=" + codigoVuelo + ", aerolinea="
+                + aerolinea + ", codAvion=" + codAvion + ", paisDestino="
+                + paisDestino + ", dia=" + dia + ", mes=" + mes + ", anio="
+                + anio + ", cantPasajesEcon="
+                + this.pasajesEconomicos.getCantidad() + ", cantPasajesPClase="
+                + this.pasajesPrimeraClase.getCantidad() + '}';
     }
-    
+
     public int compareTo(Vuelo vuelo) {
-       Vuelo otroVuelo= (Vuelo) vuelo;
-       return this.codigoVuelo.compareTo(otroVuelo.codigoVuelo);
+        Vuelo otroVuelo = (Vuelo) vuelo;
+        return this.codigoVuelo.compareTo(otroVuelo.codigoVuelo);
     }
 
 }

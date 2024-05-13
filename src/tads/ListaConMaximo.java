@@ -201,7 +201,7 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
     }
 
     @Override
-    public Nodo obtenerElemento(T x) {
+    public Nodo<T> obtenerElemento(T x) {
         if (estaElemento(x)) {
             boolean encontrado = false;
             Nodo<T> nodoactual = this.inicio;
