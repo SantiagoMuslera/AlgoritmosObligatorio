@@ -15,6 +15,11 @@ public class Pasaje implements Comparable <Pasaje> {
     private String codigoVuelo;
     private int categoriaPasaje;
     
+    public Pasaje(String pasaporteCliente, String codigoVuelo){
+        this.pasaporteCliente = pasaporteCliente;
+        this.codigoVuelo = codigoVuelo;
+    }
+    
     public Pasaje (String pasaporteCliente, String codigoVuelo, int categoriaPasaje){
         this.pasaporteCliente = pasaporteCliente;
         this.codigoVuelo = codigoVuelo;
@@ -56,7 +61,7 @@ public class Pasaje implements Comparable <Pasaje> {
             return false;
         }  
         Pasaje otroPasaje = (Pasaje)pasaje;
-        return Objects.equals(this.codigoVuelo, otroPasaje.codigoVuelo);
+        return Objects.equals(this.pasaporteCliente, otroPasaje.pasaporteCliente) && this.codigoVuelo.equals(otroPasaje.codigoVuelo);
     }
     
     public int compareTo(Pasaje pasaje) {

@@ -123,6 +123,10 @@ public class Aerolinea implements Comparable<Aerolinea> {
         return totalPasajes;
     }
     
+    public void agregarPasajeDevuelo(Pasaje item){
+        this.pasajesDevueltos.agregarFinal(item);
+    }
+    
     public Avion encontrarAvion(String codAvion){
         return this.aviones.obtenerElemento(new Avion(codAvion)).getDato();
     }

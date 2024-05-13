@@ -46,6 +46,10 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
         this.inicio = null;
         this.cantidadMaxima = cantidadMaxima;
     }
+    
+    public boolean estaLlena(){
+        return cantidad == cantidadMaxima;
+    }
 
     @Override
     public boolean esVacia() {

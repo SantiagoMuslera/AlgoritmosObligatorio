@@ -40,7 +40,20 @@ public class Cola<T extends Comparable<T>> implements ICola<T> {
             cantidad--;
         }
     }
-
+    
+    public void eliminarElemento(T dato){
+        Cola<T> aux = new Cola();
+        Nodo<T> actual = frente();
+        while(actual != null){
+            if(!actual.getDato().equals(dato)){
+                aux.encolar(actual.getDato());
+            }
+            desencolar();
+            actual = frente();
+        }
+        this.inicio = aux.frente();
+    }
+    
     @Override
     public Nodo<T> frente() {
         return inicio;
@@ -49,6 +62,19 @@ public class Cola<T extends Comparable<T>> implements ICola<T> {
     @Override
     public boolean esVacia() {
         return inicio == null;
+    }
+    
+    public boolean estaElemento(T dato){
+        
+        Nodo<T> actual = inicio;
+        boolean existeElemento = false;
+        while(actual != null && !existeElemento){
+            if(actual.getDato().equals(dato)){
+                existeElemento = true;
+            }
+            actual = actual.getSiguiente();
+        }
+        return existeElemento;
     }
 
     @Override

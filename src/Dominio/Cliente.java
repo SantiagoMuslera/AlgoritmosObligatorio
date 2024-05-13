@@ -17,7 +17,11 @@ public class Cliente implements Comparable<Cliente> {
     private String nombre;
     private int edad;
     private PilaSimple<Pasaje> pasajes;
-
+    
+    public Cliente(String pasaporte){
+        this.pasaporte = pasaporte;
+    }
+    
     public Cliente(String pasaporte, String nombre, int edad) {
         this.pasaporte = pasaporte;
         this.nombre = nombre;

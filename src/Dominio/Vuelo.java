@@ -25,11 +25,11 @@ public class Vuelo implements Comparable<Vuelo> {
     private Cola<Pasaje> pasajesEconomicosEnEspera;
     private ListaConMaximo<Pasaje> pasajesEconomicos;
     private ListaConMaximo<Pasaje> pasajesPrimeraClase;
-    
-    public Vuelo(String codigoVuelo){
+
+    public Vuelo(String codigoVuelo) {
         this.codigoVuelo = codigoVuelo;
     }
-    
+
     public Vuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int anio, int cantPasajesEcon, int cantPasajesPClase) {
         this.codigoVuelo = codigoVuelo;
         this.aerolinea = aerolinea;
@@ -43,6 +43,107 @@ public class Vuelo implements Comparable<Vuelo> {
         this.pasajesEconomicosEnEspera = new Cola();
         this.pasajesPrimeraClaseEnEspera = new Cola();
 
+    }
+
+    public Pasaje obtenerPasaje(String pasaporteCliente, String codigoVuelo) {
+        Pasaje aux = new Pasaje(pasaporteCliente, codigoVuelo);
+        if (this.pasajesEconomicos.estaElemento(aux)) {
+            return this.pasajesEconomicos.obtenerElemento(aux).getDato();
+        } else {
+            if (this.pasajesPrimeraClase.estaElemento(aux)) {
+                return this.pasajesPrimeraClase.obtenerElemento(aux).getDato();
+            } else {
+                if (this.pasajesEconomicosEnEspera.estaElemento(aux)) {
+                    //return this.pasajesEconomicosEnEspera.obtenerElemento(aux).getDato();
+                }else{
+                    if(this.pasajesPrimeraClaseEnEspera.estaElemento(aux)){
+                        //return this.pasajesEconomicosEnEspera.obtenerElemento(aux).getDato();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public void devolverPasaje(String pasaporteCliente, String codigoVuelo) {
+        Pasaje aux = new Pasaje(pasaporteCliente, codigoVuelo);
+        if (this.pasajesEconomicos.estaElemento(aux)) {
+            this.pasajesEconomicos.eliminarElemento(aux);
+            this.pasajesEconomicos.agregarFinal(this.pasajesEconomicosEnEspera.frente().getDato());
+            this.pasajesEconomicosEnEspera.desencolar();
+        } else {
+            if (this.pasajesPrimeraClase.estaElemento(aux)) {
+                 this.pasajesPrimeraClase.eliminarElemento(aux);
+                 this.pasajesPrimeraClase.agregarFinal(this.pasajesPrimeraClaseEnEspera.frente().getDato());
+                 this.pasajesPrimeraClaseEnEspera.desencolar();
+            } else {
+                if (this.pasajesEconomicosEnEspera.estaElemento(aux)) {
+                    this.pasajesEconomicosEnEspera.eliminarElemento(aux);
+                }else{
+                    if(this.pasajesPrimeraClaseEnEspera.estaElemento(aux)){
+                        this.pasajesPrimeraClaseEnEspera.eliminarElemento(aux);
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean clienteTienePasaje(String pasaporteCliente, String codigoVuelo) {
+        return clienteEnEspera(pasaporteCliente, codigoVuelo)
+                || clienteEnVuelo(pasaporteCliente, codigoVuelo);
+    }
+
+    private boolean clienteEnEspera(String pasaporteCliente, String codigoVuelo) {
+        return clienteEnEsperaEconomico(pasaporteCliente, codigoVuelo)
+                || clienteEnEsperaPrimeraClase(pasaporteCliente, codigoVuelo);
+    }
+
+    private boolean clienteEnEsperaEconomico(String pasaporteCliente, String codigoVuelo) {
+        return this.pasajesEconomicosEnEspera.
+                estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+    }
+
+    private boolean clienteEnEsperaPrimeraClase(String pasaporteCliente, String codigoVuelo) {
+        return this.pasajesPrimeraClaseEnEspera.
+                estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+    }
+
+    private boolean clienteEnVuelo(String pasaporteCliente, String codigoVuelo) {
+
+        return clienteEnVueloTipoEconomico(pasaporteCliente, codigoVuelo)
+                || clienteEnVueloTipoPrimeraClase(pasaporteCliente, codigoVuelo);
+    }
+
+    private boolean clienteEnVueloTipoEconomico(String pasaporteCliente, String codigoVuelo) {
+        return this.pasajesEconomicos.estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+    }
+
+    private boolean clienteEnVueloTipoPrimeraClase(String pasaporteCliente, String codigoVuelo) {
+        return this.pasajesPrimeraClase.estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+    }
+
+    public boolean boletosPrimeraClaseLleno() {
+        return this.pasajesPrimeraClase.estaLlena();
+    }
+
+    public boolean boletosEconomicosLleno() {
+        return this.pasajesEconomicos.estaLlena();
+    }
+
+    public void agregarPasajeEconomicoEnEspera(Pasaje item) {
+        pasajesEconomicosEnEspera.encolar(item);
+    }
+
+    public void agregarPasajePrimeraClaseEnEspera(Pasaje item) {
+        pasajesPrimeraClaseEnEspera.encolar(item);
+    }
+
+    public void agregarPasajePrimeraClase(Pasaje item) {
+        this.pasajesEconomicos.agregarFinal(item);
+    }
+
+    public void agregarPasajeEconomico(Pasaje item) {
+        pasajesPrimeraClase.agregarFinal(item);
     }
 
     public int getTotalPasajesVendidos() {

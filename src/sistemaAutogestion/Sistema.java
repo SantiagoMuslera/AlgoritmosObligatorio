@@ -162,13 +162,48 @@ public class Sistema implements IObligatorio {
     //1.8
     @Override
     public Retorno comprarPasaje(String pasaporteCliente, String codigoVuelo, int categoríaPasaje) {
-        return Retorno.noImplementada();
+        if(!this.listaClientes.estaElemento(new Cliente(pasaporteCliente))){
+            return Retorno.error1();
+        }
+        if(this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
+            return Retorno.error2();
+        }
+        Vuelo vueloBuscado = this.listaVuelos.obtenerElemento(new Vuelo(codigoVuelo)).getDato();
+        Pasaje pasajeNuevo = new Pasaje(pasaporteCliente,codigoVuelo,categoríaPasaje);
+        if(categoríaPasaje == 1){
+            if(vueloBuscado.boletosEconomicosLleno()){
+                vueloBuscado.agregarPasajeEconomicoEnEspera(pasajeNuevo);
+            }else{
+                vueloBuscado.agregarPasajeEconomico(pasajeNuevo);
+            }
+        }else{
+            if(vueloBuscado.boletosPrimeraClaseLleno()){
+                vueloBuscado.agregarPasajePrimeraClaseEnEspera(pasajeNuevo);
+            }else{
+                vueloBuscado.agregarPasajePrimeraClase(pasajeNuevo);
+            }
+        }
+        return Retorno.ok();
     }
 
     //1.9
     @Override
     public Retorno devolverPasaje(String pasaporteCliente, String codigoVuelo) {
-        return Retorno.noImplementada();
+        if(!this.listaClientes.estaElemento(new Cliente(pasaporteCliente))){
+            return Retorno.error1();
+        }
+        if(!this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
+            return Retorno.error2();
+        }
+        Vuelo vueloBuscado = this.listaVuelos.obtenerElemento(new Vuelo(codigoVuelo)).getDato();
+        if(!vueloBuscado.clienteTienePasaje(pasaporteCliente, codigoVuelo)){
+            return Retorno.error3();
+        }
+        Aerolinea aero = this.listaAerolineas.obtenerElemento(new Aerolinea(vueloBuscado.getAerolinea())).getDato();
+        Pasaje pasaje = vueloBuscado.obtenerPasaje(pasaporteCliente, codigoVuelo);
+        aero.agregarPasajeDevuelo(pasaje);
+        vueloBuscado.devolverPasaje(pasaporteCliente, codigoVuelo);
+        return Retorno.ok();
     }
 
     //2.1
