@@ -31,7 +31,7 @@ public class Nodo <T extends Comparable <T>>{
         this.dato = dato;
     }
 
-    public Nodo getSiguiente() {
+    public Nodo<T> getSiguiente() {
         return siguiente;
     }
 

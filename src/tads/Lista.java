@@ -31,7 +31,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
 
     @Override
     public boolean esVacia() {
-        return this.cantidad == 0 ? true : false;
+        return this.cantidad == 0;
     }
 
     @Override
