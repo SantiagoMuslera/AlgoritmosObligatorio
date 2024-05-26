@@ -17,6 +17,8 @@ public class Cliente implements Comparable<Cliente> {
     private String nombre;
     private int edad;
     private PilaSimple<Pasaje> pasajes;
+    //El cliente tambien tiene una lista de pasajes devueltos
+    
     
     public Cliente(String pasaporte){
         this.pasaporte = pasaporte;
@@ -96,7 +98,7 @@ public class Cliente implements Comparable<Cliente> {
 
     @Override
     public String toString() {
-        return "Cliente{" + "pasaporte=" + pasaporte + ", nombre=" + nombre + ", edad=" + edad + '}';
+        return  pasaporte + "-" + nombre + "-"+edad;
     }
 
     @Override

@@ -41,7 +41,11 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
     public void setCantidadMaxima(int CantidadMaxima) {
         this.cantidadMaxima = CantidadMaxima;
     }
-
+    
+    public int espacioRestante(){
+        return this.cantidadMaxima-this.cantidad;
+    }
+    
     public ListaConMaximo(int cantidadMaxima) {
         this.inicio = null;
         this.cantidadMaxima = cantidadMaxima;

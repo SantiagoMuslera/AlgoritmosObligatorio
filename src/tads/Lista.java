@@ -193,5 +193,18 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         }
         return new Nodo<T>(x);
     }
+    
+    public String mostrarListaREC(){
+        return obtenerElementos(inicio);
+    }
+    
+    private String obtenerElementos(Nodo<T> nodo){
+        if(nodo == null){
+            return "";
+        }else{
+            return nodo.toString() +"|\n" + obtenerElementos(nodo.getSiguiente());
+        }
+    }
+    
 
 }

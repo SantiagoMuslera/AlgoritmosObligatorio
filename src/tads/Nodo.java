@@ -24,9 +24,12 @@ public class Nodo <T extends Comparable <T>>{
         T compare = (T)obj;
         return dato.equals(compare); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+
+    @Override
+    public String toString() {
+        return dato.toString();
+    }
     
-    
- 
     public void setDato(T dato) {
         this.dato = dato;
     }

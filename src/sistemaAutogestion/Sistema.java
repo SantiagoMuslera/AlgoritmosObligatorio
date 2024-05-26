@@ -227,13 +227,13 @@ public class Sistema implements IObligatorio {
     //2.3
     @Override
     public Retorno listarClientes() {
-        return Retorno.noImplementada();
+        return Retorno.ok(this.listaClientes.mostrarListaREC());
     }
 
     //2.4
     @Override
     public Retorno listarVuelos() {
-        return Retorno.noImplementada();
+        return Retorno.ok(this.listaVuelos.mostrarListaREC());
     }
 
     //2.5

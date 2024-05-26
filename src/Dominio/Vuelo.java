@@ -228,14 +228,13 @@ public class Vuelo implements Comparable<Vuelo> {
 
     @Override
     public String toString() {
-        return "Vuelo{" + "codigoVuelo=" + codigoVuelo + ", aerolinea="
-                + aerolinea + ", codAvion=" + codAvion + ", paisDestino="
-                + paisDestino + ", dia=" + dia + ", mes=" + mes + ", anio="
-                + anio + ", cantPasajesEcon="
-                + this.pasajesEconomicos.getCantidad() + ", cantPasajesPClase="
-                + this.pasajesPrimeraClase.getCantidad() + '}';
+        return this.codigoVuelo+"-"+this.aerolinea+"-"+this.codAvion+
+                this.pasajesEconomicos.getCantidad()+"-"
+                +this.pasajesPrimeraClase.getCantidad()+"-"+
+                (pasajesEconomicos.espacioRestante()+pasajesPrimeraClase.espacioRestante());
     }
 
+    @Override
     public int compareTo(Vuelo vuelo) {
         Vuelo otroVuelo = (Vuelo) vuelo;
         return this.codigoVuelo.compareTo(otroVuelo.codigoVuelo);
