@@ -203,6 +203,7 @@ public class Sistema implements IObligatorio {
         Pasaje pasaje = vueloBuscado.obtenerPasaje(pasaporteCliente, codigoVuelo);
         aero.agregarPasajeDevuelo(pasaje);
         vueloBuscado.devolverPasaje(pasaporteCliente, codigoVuelo);
+        //TODO: FALTA AÑADIR A LA LISTA DE DEVUELTOS EN CLIENTE Y QUITARLE EL PASAJE DE LA PILA.
         return Retorno.ok();
     }
 
@@ -239,13 +240,22 @@ public class Sistema implements IObligatorio {
     //2.5
     @Override
     public Retorno vuelosDeCliente(String pasaporte) {
-        return Retorno.noImplementada();
+        Cliente cliente = new Cliente(pasaporte);
+        if(!this.listaClientes.estaElemento(cliente)){
+            return Retorno.error1();
+        }
+        return Retorno.ok(this.listaClientes.obtenerElemento(cliente).getDato().mostrarTodosLosPasajes());
     }
 
     //2.6
     @Override
     public Retorno pasajesDevueltos(String nombreAerolinea) {
-        return Retorno.noImplementada();
+        Aerolinea ae = new Aerolinea(nombreAerolinea);
+        if(!this.listaAerolineas.estaElemento(ae)){
+            return Retorno.error1();
+        }
+        String pasajesDevueltos = this.listaAerolineas.obtenerElemento(ae).getDato().mostrarPasajesDevueltos();
+        return Retorno.ok(pasajesDevueltos);
     }
 
     //2.7

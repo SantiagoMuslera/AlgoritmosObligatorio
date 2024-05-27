@@ -17,7 +17,7 @@ public class Cliente implements Comparable<Cliente> {
     private String nombre;
     private int edad;
     private PilaSimple<Pasaje> pasajes;
-    //El cliente tambien tiene una lista de pasajes devueltos
+    private Lista<Pasaje> pasajesDevueltos;
     
     
     public Cliente(String pasaporte){
@@ -28,8 +28,12 @@ public class Cliente implements Comparable<Cliente> {
         this.pasaporte = pasaporte;
         this.nombre = nombre;
         this.edad = edad;
+        this.pasajes = new PilaSimple<>();
+        this.pasajesDevueltos = new Lista<>();
     }
-
+    
+    //TODO: FALTA QUITAR EL PASAJE DEVUELTO DE LA PILA Y AÑADIRLO A LA LISTA.
+    
     public String getPasaporte() {
         return pasaporte;
     }
@@ -85,7 +89,30 @@ public class Cliente implements Comparable<Cliente> {
     public String MostrarListaPasajes() {
         return this.pasajes.MostrarContenido();
     }
-
+    
+    public String mostrarTodosLosPasajes(){
+        return mostrarPasajesNoDevueltos(this.pasajes.obtenerTope()) + 
+                mostrarPasajesDevueltos(this.pasajesDevueltos.getInicio());
+    }
+    
+    private String mostrarPasajesNoDevueltos(Nodo<Pasaje> pasaje){
+        if(pasaje == null){
+            return "";
+        }else{
+            return pasaje.getDato().getCodigoVuelo() + "-" + "CPR" + 
+                    "|\n" + mostrarPasajesDevueltos(pasaje.getSiguiente());
+        }
+    }
+    
+    private String mostrarPasajesDevueltos(Nodo<Pasaje> pasaje){
+        if(pasaje == null){
+            return "";
+        }else{
+            return pasaje.getDato().getCodigoVuelo() + "-" + "DEV" + 
+                    "|\n" + mostrarPasajesDevueltos(pasaje.getSiguiente());
+        }
+    }
+    
     @Override
     public boolean equals(Object cliente) {
         if (!this.getClass().equals(cliente.getClass())) {

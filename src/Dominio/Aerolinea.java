@@ -4,8 +4,6 @@
  */
 package Dominio;
 
-import java.util.Objects;
-import jdk.jshell.spi.ExecutionControl;
 
 import tads.*;
 
@@ -35,9 +33,9 @@ public class Aerolinea implements Comparable<Aerolinea> {
         this.nombre = nombre;
         this.pais = pais;
         this.cantMaxAviones = cantMaxAviones;
-        this.aviones = new ListaConMaximo<Avion>(cantMaxAviones);
-        this.vuelos = new Lista<Vuelo>();
-        this.pasajesDevueltos = new Lista<Pasaje>();
+        this.aviones = new ListaConMaximo<>(cantMaxAviones);
+        this.vuelos = new Lista<>();
+        this.pasajesDevueltos = new Lista<>();
     }
 
     public String getNombre() {
@@ -54,6 +52,16 @@ public class Aerolinea implements Comparable<Aerolinea> {
     
     public void agregarVuelo(Vuelo v){
         this.vuelos.agregarInicio(v);
+    }
+    
+    public String mostrarPasajesDevueltos(){
+        Nodo<Pasaje> actual = this.pasajesDevueltos.getInicio();
+        StringBuilder sb = new StringBuilder();
+        while(actual != null){
+            sb.append(actual.getDato().getPasaporteCliente()).append("-")
+                    .append(actual.getDato().getCodigoVuelo()).append("|\n");
+        }
+        return sb.toString();
     }
     
     public boolean existeVueloSegunFechaYAvion(String codAvion, int dia,int mes,int año){
