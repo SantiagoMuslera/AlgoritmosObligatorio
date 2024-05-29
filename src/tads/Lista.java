@@ -135,10 +135,10 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         if (estaElemento(x)) {
             boolean encontrado = false;
             if (this.inicio.getDato().equals(x)) {
-                this.inicio = this.inicio.getSiguiente();
+                eliminarInicio();
             } else {
                 if (this.fin.getDato().equals(x)) {
-                    this.fin = null;
+                    eliminarFinal();
                 } else {
                     Nodo<T> nodoactual = this.inicio;
                     while (nodoactual != null && !encontrado) {
@@ -149,9 +149,10 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
                         }
                         nodoactual = nodoactual.getSiguiente();
                     }
+                    this.cantidad--;
                 }
             }
-            this.cantidad--;
+            
         }
     }
 
