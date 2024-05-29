@@ -70,7 +70,10 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
         while (actual != null) {
-            sb.append(actual.getDato()).append('|').append("\n");
+            sb.append(actual.getDato());
+            if(actual.getSiguiente() != null){
+                sb.append("|").append("\n");
+            }
             actual = actual.getSiguiente();
         }
         return sb.toString();

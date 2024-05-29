@@ -44,7 +44,10 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
         while (actual != null) {
-            sb.append(actual.getDato().toString()).append("|").append("\n");
+            sb.append(actual.getDato().toString());
+            if(actual.getSiguiente() != null){
+                sb.append("|").append("\n");
+            }
             actual = actual.getSiguiente();
         }
         return sb.toString();
