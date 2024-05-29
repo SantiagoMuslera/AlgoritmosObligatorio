@@ -35,7 +35,7 @@ public class Sistema implements IObligatorio {
        if(cantMaxAviones<=0){
            return Retorno.error2();
        }
-       this.listaAerolineas.agregarFinal(aerolinea);
+       this.listaAerolineas.agregarInicio(aerolinea);
        return Retorno.ok();
     }
 
