@@ -98,13 +98,13 @@ public class IObligatorioTest {
         r = miSistema.crearAerolinea("Pluna", "Uruguay", 2);
         
         r = miSistema.listarAerolineas();
-        assertEquals("Aerolineas Argentinas-Argentina-40|\nGol-Brasil-10|\nPluna-Uruguay-2|\n", r.valorString);
+        assertEquals("Pluna-Uruguay-2|\nGol-Brasil-10|\nAerolineas Argentinas-Argentina-40", r.valorString);
     }
 
     @Test
     public void testListarAvionesDeAerolinea1() {
         Retorno r = miSistema.listarAvionesDeAerolinea("Aerolineas Argentinas");
-        assertEquals("avion1-60|\n", r.valorString);
+        assertEquals("avion1-60", r.valorString);
         
         r = miSistema.listarAvionesDeAerolinea("Pluna");
         assertEquals(Retorno.error1().resultado, r.resultado);

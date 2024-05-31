@@ -11,35 +11,35 @@ import java.util.Objects;
  * @author Santiago
  */
 public class Pasaje implements Comparable <Pasaje> {
-    private String pasaporteCliente;
-    private String codigoVuelo;
+    private Cliente cliente;
+    private Vuelo vuelo;
     private int categoriaPasaje;
     
-    public Pasaje(String pasaporteCliente, String codigoVuelo){
-        this.pasaporteCliente = pasaporteCliente;
-        this.codigoVuelo = codigoVuelo;
+    public Pasaje(Cliente pasaporteCliente, Vuelo vuelo){
+        this.cliente = pasaporteCliente;
+        this.vuelo = vuelo;
     }
     
-    public Pasaje (String pasaporteCliente, String codigoVuelo, int categoriaPasaje){
-        this.pasaporteCliente = pasaporteCliente;
-        this.codigoVuelo = codigoVuelo;
+    public Pasaje (Cliente pasaporteCliente, Vuelo vuelo, int categoriaPasaje){
+        this.cliente = pasaporteCliente;
+        this.vuelo = vuelo;
         this.categoriaPasaje = categoriaPasaje;
     }
 
-    public String getPasaporteCliente() {
-        return pasaporteCliente;
+    public Cliente getPasaporteCliente() {
+        return cliente;
     }
 
-    public void setPasaporteCliente(String pasaporteCliente) {
-        this.pasaporteCliente = pasaporteCliente;
+    public void setPasaporteCliente(Cliente pasaporteCliente) {
+        this.cliente = pasaporteCliente;
     }
 
     public String getCodigoVuelo() {
-        return codigoVuelo;
+        return vuelo.getCodigoVuelo();
     }
 
-    public void setCodigoVuelo(String codigoVuelo) {
-        this.codigoVuelo = codigoVuelo;
+    public void setCodigoVuelo(Vuelo codigoVuelo) {
+        this.vuelo = codigoVuelo;
     }
 
     public int getCategoríaPasaje() {
@@ -52,7 +52,7 @@ public class Pasaje implements Comparable <Pasaje> {
 
     @Override
     public String toString() {
-        return "Pasaje{" + "pasaporteCliente=" + pasaporteCliente + ", codigoVuelo=" + codigoVuelo + ", categor\u00edaPasaje=" + categoriaPasaje + '}';
+        return "Pasaje{" + "pasaporteCliente=" + this.cliente.getPasaporte() + ", codigoVuelo=" + this.vuelo.getCodigoVuelo() + ", categor\u00edaPasaje=" + categoriaPasaje + '}';
     }
 
     @Override
@@ -61,11 +61,11 @@ public class Pasaje implements Comparable <Pasaje> {
             return false;
         }  
         Pasaje otroPasaje = (Pasaje)pasaje;
-        return Objects.equals(this.pasaporteCliente, otroPasaje.pasaporteCliente) && this.codigoVuelo.equals(otroPasaje.codigoVuelo);
+        return Objects.equals(this.cliente.getPasaporte(), otroPasaje.cliente.getPasaporte()) && this.vuelo.getCodigoVuelo().equals(otroPasaje.vuelo.getCodigoVuelo());
     }
     
     public int compareTo(Pasaje pasaje) {
        Pasaje otroPasaje= (Pasaje) pasaje;
-       return this.codigoVuelo.compareTo(otroPasaje.codigoVuelo);
+       return this.vuelo.getCodigoVuelo().compareTo(otroPasaje.vuelo.getCodigoVuelo());
     }
 }

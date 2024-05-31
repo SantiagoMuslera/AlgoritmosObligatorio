@@ -15,8 +15,8 @@ import tads.ListaConMaximo;
 public class Vuelo implements Comparable<Vuelo> {
 
     private String codigoVuelo;
-    private String aerolinea;
-    private String codAvion;
+    private Aerolinea aerolinea;
+    private Avion avion;
     private String paisDestino;
     private int dia;
     private int mes;
@@ -30,10 +30,10 @@ public class Vuelo implements Comparable<Vuelo> {
         this.codigoVuelo = codigoVuelo;
     }
 
-    public Vuelo(String codigoVuelo, String aerolinea, String codAvion, String paisDestino, int dia, int mes, int anio, int cantPasajesEcon, int cantPasajesPClase) {
+    public Vuelo(String codigoVuelo, Aerolinea aerolinea, Avion Avion, String paisDestino, int dia, int mes, int anio, int cantPasajesEcon, int cantPasajesPClase) {
         this.codigoVuelo = codigoVuelo;
         this.aerolinea = aerolinea;
-        this.codAvion = codAvion;
+        this.avion = Avion;
         this.paisDestino = paisDestino;
         this.dia = dia;
         this.mes = mes;
@@ -45,8 +45,8 @@ public class Vuelo implements Comparable<Vuelo> {
 
     }
 
-    public Pasaje obtenerPasaje(String pasaporteCliente, String codigoVuelo) {
-        Pasaje aux = new Pasaje(pasaporteCliente, codigoVuelo);
+    public Pasaje obtenerPasaje(Cliente cliente) {
+        Pasaje aux = new Pasaje(cliente, this);
         if (this.pasajesEconomicos.estaElemento(aux)) {
             return this.pasajesEconomicos.obtenerElemento(aux).getDato();
         } else {
@@ -65,8 +65,8 @@ public class Vuelo implements Comparable<Vuelo> {
         return null;
     }
 
-    public void devolverPasaje(String pasaporteCliente, String codigoVuelo) {
-        Pasaje aux = new Pasaje(pasaporteCliente, codigoVuelo);
+    public void devolverPasaje(Cliente cliente) {
+        Pasaje aux = new Pasaje(cliente, this);
         if (this.pasajesEconomicos.estaElemento(aux)) {
             this.pasajesEconomicos.eliminarElemento(aux);
             this.pasajesEconomicos.agregarFinal(this.pasajesEconomicosEnEspera.frente().getDato());
@@ -88,38 +88,38 @@ public class Vuelo implements Comparable<Vuelo> {
         }
     }
 
-    public boolean clienteTienePasaje(String pasaporteCliente, String codigoVuelo) {
-        return clienteEnEspera(pasaporteCliente, codigoVuelo)
-                || clienteEnVuelo(pasaporteCliente, codigoVuelo);
+    public boolean clienteTienePasaje(Cliente cliente) {
+        return clienteEnEspera(cliente)
+                || clienteEnVuelo(cliente);
     }
 
-    private boolean clienteEnEspera(String pasaporteCliente, String codigoVuelo) {
-        return clienteEnEsperaEconomico(pasaporteCliente, codigoVuelo)
-                || clienteEnEsperaPrimeraClase(pasaporteCliente, codigoVuelo);
+    private boolean clienteEnEspera(Cliente cliente) {
+        return clienteEnEsperaEconomico(cliente)
+                || clienteEnEsperaPrimeraClase(cliente);
     }
 
-    private boolean clienteEnEsperaEconomico(String pasaporteCliente, String codigoVuelo) {
+    private boolean clienteEnEsperaEconomico(Cliente cliente) {
         return this.pasajesEconomicosEnEspera.
-                estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+                estaElemento(new Pasaje(cliente, this));
     }
 
-    private boolean clienteEnEsperaPrimeraClase(String pasaporteCliente, String codigoVuelo) {
+    private boolean clienteEnEsperaPrimeraClase(Cliente cliente) {
         return this.pasajesPrimeraClaseEnEspera.
-                estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+                estaElemento(new Pasaje(cliente, this));
     }
 
-    private boolean clienteEnVuelo(String pasaporteCliente, String codigoVuelo) {
+    private boolean clienteEnVuelo(Cliente cliente) {
 
-        return clienteEnVueloTipoEconomico(pasaporteCliente, codigoVuelo)
-                || clienteEnVueloTipoPrimeraClase(pasaporteCliente, codigoVuelo);
+        return clienteEnVueloTipoEconomico(cliente)
+                || clienteEnVueloTipoPrimeraClase(cliente);
     }
 
-    private boolean clienteEnVueloTipoEconomico(String pasaporteCliente, String codigoVuelo) {
-        return this.pasajesEconomicos.estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+    private boolean clienteEnVueloTipoEconomico(Cliente cliente) {
+        return this.pasajesEconomicos.estaElemento(new Pasaje(cliente,this));
     }
 
-    private boolean clienteEnVueloTipoPrimeraClase(String pasaporteCliente, String codigoVuelo) {
-        return this.pasajesPrimeraClase.estaElemento(new Pasaje(pasaporteCliente, codigoVuelo));
+    private boolean clienteEnVueloTipoPrimeraClase(Cliente cliente) {
+        return this.pasajesPrimeraClase.estaElemento(new Pasaje(cliente,this));
     }
 
     public boolean boletosPrimeraClaseLleno() {
@@ -167,20 +167,20 @@ public class Vuelo implements Comparable<Vuelo> {
         }
     }
 
-    public String getAerolinea() {
+    public Aerolinea getAerolinea() {
         return aerolinea;
     }
 
-    public void setAerolinea(String aerolinea) {
+    public void setAerolinea(Aerolinea aerolinea) {
         this.aerolinea = aerolinea;
     }
 
-    public String getCodAvion() {
-        return codAvion;
+    public Avion getCodAvion() {
+        return avion;
     }
 
-    public void setCodAvion(String codAvion) {
-        this.codAvion = codAvion;
+    public void setCodAvion(Avion codAvion) {
+        this.avion = codAvion;
     }
 
     public String getPaisDestino() {
@@ -228,7 +228,7 @@ public class Vuelo implements Comparable<Vuelo> {
 
     @Override
     public String toString() {
-        return this.codigoVuelo+"-"+this.aerolinea+"-"+this.codAvion+
+        return this.codigoVuelo+"-"+this.aerolinea+"-"+this.avion.getCodigo()+
                 this.pasajesEconomicos.getCantidad()+"-"
                 +this.pasajesPrimeraClase.getCantidad()+"-"+
                 (pasajesEconomicos.espacioRestante()+pasajesPrimeraClase.espacioRestante());

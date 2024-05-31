@@ -69,7 +69,7 @@ public class Sistema implements IObligatorio {
         
         Aerolinea aero = (Aerolinea)this.listaAerolineas.obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
         
-        Avion avion = new Avion(codigo,capacidadMax,nomAerolinea);
+        Avion avion = new Avion(codigo,capacidadMax,aero);
         //El codigo ya esta en la aerolinea
         if(aero.getAviones().estaElemento(avion)){
             return Retorno.error1();
@@ -153,7 +153,7 @@ public class Sistema implements IObligatorio {
         if(cantPasajesEcon%3 != 0 || cantPasajesPClase%3!=0){
             return Retorno.error5();
         }
-        Vuelo nuevoVuelo = new Vuelo(codigoVuelo,aerolinea,codAvion,paisDestino,dia,mes,año,cantPasajesEcon,cantPasajesPClase);
+        Vuelo nuevoVuelo = new Vuelo(codigoVuelo,aero,avion,paisDestino,dia,mes,año,cantPasajesEcon,cantPasajesPClase);
         aero.agregarVuelo(nuevoVuelo);
         this.listaVuelos.agregarInicio(nuevoVuelo);
         return Retorno.ok();
@@ -168,8 +168,9 @@ public class Sistema implements IObligatorio {
         if(this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
             return Retorno.error2();
         }
+        Cliente cliente = this.listaClientes.obtenerElemento(new Cliente(pasaporteCliente)).getDato();
         Vuelo vueloBuscado = this.listaVuelos.obtenerElemento(new Vuelo(codigoVuelo)).getDato();
-        Pasaje pasajeNuevo = new Pasaje(pasaporteCliente,codigoVuelo,categoríaPasaje);
+        Pasaje pasajeNuevo = new Pasaje(cliente,vueloBuscado,categoríaPasaje);
         if(categoríaPasaje == 1){
             if(vueloBuscado.boletosEconomicosLleno()){
                 vueloBuscado.agregarPasajeEconomicoEnEspera(pasajeNuevo);
@@ -195,14 +196,14 @@ public class Sistema implements IObligatorio {
         if(!this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
             return Retorno.error2();
         }
+        Cliente cliente = this.listaClientes.obtenerElemento(new Cliente(pasaporteCliente)).getDato();
         Vuelo vueloBuscado = this.listaVuelos.obtenerElemento(new Vuelo(codigoVuelo)).getDato();
-        if(!vueloBuscado.clienteTienePasaje(pasaporteCliente, codigoVuelo)){
+        if(!vueloBuscado.clienteTienePasaje(cliente)){
             return Retorno.error3();
         }
-        Aerolinea aero = this.listaAerolineas.obtenerElemento(new Aerolinea(vueloBuscado.getAerolinea())).getDato();
-        Pasaje pasaje = vueloBuscado.obtenerPasaje(pasaporteCliente, codigoVuelo);
-        aero.agregarPasajeDevuelo(pasaje);
-        vueloBuscado.devolverPasaje(pasaporteCliente, codigoVuelo);
+        Pasaje pasaje = vueloBuscado.obtenerPasaje(cliente);
+        vueloBuscado.getAerolinea().agregarPasajeDevuelo(pasaje);
+        vueloBuscado.devolverPasaje(cliente);
         //TODO: FALTA AÑADIR A LA LISTA DE DEVUELTOS EN CLIENTE Y QUITARLE EL PASAJE DE LA PILA.
         return Retorno.ok();
     }
