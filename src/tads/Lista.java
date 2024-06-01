@@ -44,9 +44,9 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
         while (actual != null) {
-            sb.append(actual.getDato().toString());
-            if(actual.getSiguiente() != null){
-                sb.append("|").append("\n");
+            sb.append(actual.getDato().toString()).append("|");
+            if (actual.getSiguiente() != null) {
+                sb.append("\n");
             }
             actual = actual.getSiguiente();
         }
@@ -155,7 +155,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
                     this.cantidad--;
                 }
             }
-            
+
         }
     }
 
@@ -197,18 +197,22 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         }
         return new Nodo<T>(x);
     }
-    
-    public String mostrarListaREC(){
+
+    public String mostrarListaREC() {
         return obtenerElementos(inicio);
     }
-    
-    private String obtenerElementos(Nodo<T> nodo){
-        if(nodo == null){
+
+    private String obtenerElementos(Nodo<T> nodo) {
+        if (nodo == null) {
             return "";
-        }else{
-            return nodo.toString() +"|\n" + obtenerElementos(nodo.getSiguiente());
+        } else {
+            String retorno = nodo.toString() + "|";
+            if (nodo.getSiguiente() != null) {
+                retorno += "\n";
+            }
+            return retorno + obtenerElementos(nodo.getSiguiente());
         }
+
     }
-    
 
 }
