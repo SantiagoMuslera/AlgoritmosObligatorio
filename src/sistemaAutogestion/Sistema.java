@@ -144,7 +144,7 @@ public class Sistema implements IObligatorio {
                 return Retorno.error6();
             }
         }
-        if(aero.avionExiste(codAvion)){
+        if(!aero.avionExiste(codAvion)){
             return Retorno.error3();
         }
         if(aero.existeVueloSegunFechaYAvion(codAvion,  dia, mes, año)){
@@ -165,7 +165,7 @@ public class Sistema implements IObligatorio {
         if(!this.listaClientes.estaElemento(new Cliente(pasaporteCliente))){
             return Retorno.error1();
         }
-        if(this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
+        if(!this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
             return Retorno.error2();
         }
         Cliente cliente = this.listaClientes.obtenerElemento(new Cliente(pasaporteCliente)).getDato();
