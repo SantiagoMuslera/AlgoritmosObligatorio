@@ -168,7 +168,17 @@ public class IObligatorioTest {
 
     @Test
     public void testComprarPasaje() {
-        //Completar para segunda entrega
+        Retorno r = miSistema.comprarPasaje("V123", "P123456", 1);
+    assertEquals(Retorno.ok().resultado, r.resultado);
+    
+    r = miSistema.comprarPasaje("V123", "P123456", 2);
+    assertEquals(Retorno.ok().resultado, r.resultado);
+    
+    r = miSistema.comprarPasaje("V123", "P654321", 1);
+    assertEquals(Retorno.error1().resultado, r.resultado); // Pasaporte del cliente no existe
+    
+    r = miSistema.comprarPasaje("V124", "P123456", 1);
+    assertEquals(Retorno.error2().resultado, r.resultado); // Codigo del vuelo no existe
     }
 
     @Test
