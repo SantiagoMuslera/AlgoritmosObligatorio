@@ -20,6 +20,7 @@ public class IObligatorioTest {
         miSistema.registrarAvion("avion1", 60, "Aerolineas Argentinas");
         miSistema.registrarCliente("P123456", "Lucho Lucheiro", 20);
         miSistema.crearVuelo("V321", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 8, 2023, 30, 15);
+        miSistema.comprarPasaje("V321", "P123456", 1);
 
         //Coloca aquí cualquier otra inicialización de listas necesaria
     }
@@ -115,80 +116,92 @@ public class IObligatorioTest {
 
     @Test
     public void testRegistrarCliente() {
-  
-    Retorno r = miSistema.registrarCliente("P654321", "Juan Perez", 30);
-            assertEquals(Retorno.ok().resultado, r.resultado);
-            
-            r = miSistema.registrarCliente("P234567", "Oscar Martinez", -5); // edad menor que 0
-            assertEquals(Retorno.error1().resultado, r.resultado);
 
-            r = miSistema.registrarCliente("P1234567", "Maria Lopez", 25); // Pasaporte + 7 caracteres
-            assertEquals(Retorno.error2().resultado, r.resultado);
-            
-            r = miSistema.registrarCliente("P12345", "Ana Gomez", 26); // Pasapirte - 7 caracteres
-            assertEquals(Retorno.error2().resultado, r.resultado);
+        Retorno r = miSistema.registrarCliente("P654321", "Juan Perez", 30);
+        assertEquals(Retorno.ok().resultado, r.resultado);
 
-            r = miSistema.registrarCliente("P123456", "Lucho Lucheiro", 20);
-            assertEquals(Retorno.error3().resultado, r.resultado); // Paporte ya existe
+        r = miSistema.registrarCliente("P234567", "Oscar Martinez", -5); // edad menor que 0
+        assertEquals(Retorno.error1().resultado, r.resultado);
+
+        r = miSistema.registrarCliente("P1234567", "Maria Lopez", 25); // Pasaporte + 7 caracteres
+        assertEquals(Retorno.error2().resultado, r.resultado);
+
+        r = miSistema.registrarCliente("P12345", "Ana Gomez", 26); // Pasapirte - 7 caracteres
+        assertEquals(Retorno.error2().resultado, r.resultado);
+
+        r = miSistema.registrarCliente("P123456", "Lucho Lucheiro", 20);
+        assertEquals(Retorno.error3().resultado, r.resultado); // Paporte ya existe
 
     }
 
-   
     @Test
     public void testCrearVuelo() {
-            
-    // Caso 1: Crear vuelo correctamente
-    Retorno r = miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 30, 15);
-    assertEquals(Retorno.ok().resultado, r.resultado);
-    
-    // Caso 1: Código de vuelo ya existe
-    r = miSistema.crearVuelo("V321", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 8, 2023, 30, 15);
-    assertEquals(Retorno.error1().resultado, r.resultado);
 
-    // Caso 2: Aerolínea no existe
-    r = miSistema.crearVuelo("V124", "Aerolineas Ficticia", "avion1", "Brasil", 1, 7, 2023, 30, 15);
-    assertEquals(Retorno.error2().resultado, r.resultado);
+        // Caso 1: Crear vuelo correctamente
+        Retorno r = miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 30, 15);
+        assertEquals(Retorno.ok().resultado, r.resultado);
 
-    // Caso 3: Código de avión no existe en la aerolínea
-    r = miSistema.crearVuelo("V125", "Aerolineas Argentinas", "avion2", "Brasil", 1, 7, 2023, 30, 15);
-    assertEquals(Retorno.error3().resultado, r.resultado);
+        // Caso 1: Código de vuelo ya existe
+        r = miSistema.crearVuelo("V321", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 8, 2023, 30, 15);
+        assertEquals(Retorno.error1().resultado, r.resultado);
 
-    // Caso 4: Ya existe un vuelo para ese avión en esa fecha
-    r = miSistema.crearVuelo("V126", "Aerolineas Iberia", "avion1", "Chile", 1, 7, 2023, 30, 15);
-    assertEquals(Retorno.error4().resultado, r.resultado);
+        // Caso 2: Aerolínea no existe
+        r = miSistema.crearVuelo("V124", "Aerolineas Ficticia", "avion1", "Brasil", 1, 7, 2023, 30, 15);
+        assertEquals(Retorno.error2().resultado, r.resultado);
 
-    // Caso 5: Cantidades de pasajes no son múltiplos de 3
-    r = miSistema.crearVuelo("V127", "Aerolineas Iberia", "avion1", "Perú", 2, 7, 2023, 31, 16);
-    assertEquals(Retorno.error5().resultado, r.resultado);
-    
-    // Caso 6: Suma de pasajes supera la cantidad máxima permitida por el avión
-    r = miSistema.crearVuelo("V128", "Aerolineas Iberia", "avion1", "Uruguay", 2, 7, 2023, 40, 25);
-    assertEquals(Retorno.error6().resultado, r.resultado);
+        // Caso 3: Código de avión no existe en la aerolínea
+        r = miSistema.crearVuelo("V125", "Aerolineas Argentinas", "avion2", "Brasil", 1, 7, 2023, 30, 15);
+        assertEquals(Retorno.error3().resultado, r.resultado);
+
+        // Caso 4: Ya existe un vuelo para ese avión en esa fecha
+        r = miSistema.crearVuelo("V126", "Aerolineas Iberia", "avion1", "Chile", 1, 7, 2023, 30, 15);
+        assertEquals(Retorno.error4().resultado, r.resultado);
+
+        // Caso 5: Cantidades de pasajes no son múltiplos de 3
+        r = miSistema.crearVuelo("V127", "Aerolineas Iberia", "avion1", "Perú", 2, 7, 2023, 31, 16);
+        assertEquals(Retorno.error5().resultado, r.resultado);
+
+        // Caso 6: Suma de pasajes supera la cantidad máxima permitida por el avión
+        r = miSistema.crearVuelo("V128", "Aerolineas Iberia", "avion1", "Uruguay", 2, 7, 2023, 40, 25);
+        assertEquals(Retorno.error6().resultado, r.resultado);
     }
 
     @Test
     public void testComprarPasaje() {
         Retorno r = miSistema.comprarPasaje("V123", "P123456", 1);
-    assertEquals(Retorno.ok().resultado, r.resultado);
-    
-    r = miSistema.comprarPasaje("V123", "P123456", 2);
-    assertEquals(Retorno.ok().resultado, r.resultado);
-    
-    r = miSistema.comprarPasaje("V123", "P654321", 1);
-    assertEquals(Retorno.error1().resultado, r.resultado); // Pasaporte del cliente no existe
-    
-    r = miSistema.comprarPasaje("V124", "P123456", 1);
-    assertEquals(Retorno.error2().resultado, r.resultado); // Codigo del vuelo no existe
+        assertEquals(Retorno.ok().resultado, r.resultado);
+
+        r = miSistema.comprarPasaje("V123", "P123456", 2);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+
+        r = miSistema.comprarPasaje("V123", "P654321", 1);
+        assertEquals(Retorno.error1().resultado, r.resultado); // Pasaporte del cliente no existe
+
+        r = miSistema.comprarPasaje("V124", "P123456", 1);
+        assertEquals(Retorno.error2().resultado, r.resultado); // Codigo del vuelo no existe
     }
 
     @Test
     public void testDevolverPasaje() {
-        //Completar para segunda entrega
+
+        Retorno r = miSistema.devolverPasaje("V321", "P123456");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+
+        r = miSistema.devolverPasaje("V321", "P654321");
+        assertEquals(Retorno.error1().resultado, r.resultado); // Pasaporte no registrado
+
+        r = miSistema.devolverPasaje("V124", "P123456");
+        assertEquals(Retorno.error2().resultado, r.resultado); // Vuelo no registrado
     }
 
     @Test
     public void testListarClientes() {
-        //Completar para segunda entrega
+
+        miSistema.registrarCliente("P234567", "Juan Perez", 30);
+        miSistema.registrarCliente("P765432", "Maria Lopez", 25);
+
+        Retorno r = miSistema.listarClientes();
+        assertEquals("P234567-Juan Perez-30|\nP765432-Maria Lopez-25", r.valorString);
     }
 
     @Test
