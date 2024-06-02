@@ -31,7 +31,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
 
     @Override
     public boolean esVacia() {
-        return this.cantidad == 0 ? true : false;
+        return this.cantidad == 0;
     }
 
     @Override
@@ -44,7 +44,10 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
         while (actual != null) {
-            sb.append(actual.getDato().toString()).append("|").append("\n");
+            sb.append(actual.getDato().toString()).append("|");
+            if (actual.getSiguiente() != null) {
+                sb.append("\n");
+            }
             actual = actual.getSiguiente();
         }
         return sb.toString();
@@ -135,10 +138,10 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         if (estaElemento(x)) {
             boolean encontrado = false;
             if (this.inicio.getDato().equals(x)) {
-                this.inicio = this.inicio.getSiguiente();
+                eliminarInicio();
             } else {
                 if (this.fin.getDato().equals(x)) {
-                    this.fin = null;
+                    eliminarFinal();
                 } else {
                     Nodo<T> nodoactual = this.inicio;
                     while (nodoactual != null && !encontrado) {
@@ -149,9 +152,10 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
                         }
                         nodoactual = nodoactual.getSiguiente();
                     }
+                    this.cantidad--;
                 }
             }
-            this.cantidad--;
+
         }
     }
 
@@ -178,7 +182,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
     }
 
     @Override
-    public Nodo obtenerElemento(T x) {
+    public Nodo<T> obtenerElemento(T x) {
         if (estaElemento(x)) {
             boolean encontrado = false;
             Nodo<T> nodoactual = this.inicio;
@@ -192,6 +196,23 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
             return nodoactual;
         }
         return new Nodo<T>(x);
+    }
+
+    public String mostrarListaREC() {
+        return obtenerElementos(inicio);
+    }
+
+    private String obtenerElementos(Nodo<T> nodo) {
+        if (nodo == null) {
+            return "";
+        } else {
+            String retorno = nodo.toString() + "|";
+            if (nodo.getSiguiente() != null) {
+                retorno += "\n";
+            }
+            return retorno + obtenerElementos(nodo.getSiguiente());
+        }
+
     }
 
 }

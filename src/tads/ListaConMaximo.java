@@ -41,10 +41,18 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
     public void setCantidadMaxima(int CantidadMaxima) {
         this.cantidadMaxima = CantidadMaxima;
     }
-
+    
+    public int espacioRestante(){
+        return this.cantidadMaxima-this.cantidad;
+    }
+    
     public ListaConMaximo(int cantidadMaxima) {
         this.inicio = null;
         this.cantidadMaxima = cantidadMaxima;
+    }
+    
+    public boolean estaLlena(){
+        return cantidad == cantidadMaxima;
     }
 
     @Override
@@ -62,7 +70,10 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
         StringBuilder sb = new StringBuilder();
         Nodo<T> actual = this.inicio;
         while (actual != null) {
-            sb.append(actual.getDato()).append('|').append("\n");
+            sb.append(actual.getDato()).append("|");
+            if(actual.getSiguiente() != null){
+                sb.append("\n");
+            }
             actual = actual.getSiguiente();
         }
         return sb.toString();
@@ -155,10 +166,10 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
         if (estaElemento(x)) {
             boolean encontrado = false;
             if (this.inicio.getDato().equals(x)) {
-                this.inicio = this.inicio.getSiguiente();
+                eliminarInicio();
             } else {
                 if (this.fin.getDato().equals(x)) {
-                    this.fin = null;
+                    eliminarFinal();
                 } else {
                     Nodo<T> nodoactual = this.inicio;
                     while (nodoactual != null && !encontrado) {
@@ -169,9 +180,10 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
                         }
                         nodoactual = nodoactual.getSiguiente();
                     }
+                    this.cantidad--;
                 }
             }
-            this.cantidad--;
+            
         }
     }
 
@@ -201,7 +213,7 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
     }
 
     @Override
-    public Nodo obtenerElemento(T x) {
+    public Nodo<T> obtenerElemento(T x) {
         if (estaElemento(x)) {
             boolean encontrado = false;
             Nodo<T> nodoactual = this.inicio;

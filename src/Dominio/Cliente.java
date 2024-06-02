@@ -17,13 +17,23 @@ public class Cliente implements Comparable<Cliente> {
     private String nombre;
     private int edad;
     private PilaSimple<Pasaje> pasajes;
-
+    private Lista<Pasaje> pasajesDevueltos;
+    
+    
+    public Cliente(String pasaporte){
+        this.pasaporte = pasaporte;
+    }
+    
     public Cliente(String pasaporte, String nombre, int edad) {
         this.pasaporte = pasaporte;
         this.nombre = nombre;
         this.edad = edad;
+        this.pasajes = new PilaSimple<>();
+        this.pasajesDevueltos = new Lista<>();
     }
-
+    
+    //TODO: FALTA QUITAR EL PASAJE DEVUELTO DE LA PILA Y AÑADIRLO A LA LISTA.
+    
     public String getPasaporte() {
         return pasaporte;
     }
@@ -79,7 +89,30 @@ public class Cliente implements Comparable<Cliente> {
     public String MostrarListaPasajes() {
         return this.pasajes.MostrarContenido();
     }
-
+    
+    public String mostrarTodosLosPasajes(){
+        return mostrarPasajesNoDevueltos(this.pasajes.obtenerTope()) + 
+                mostrarPasajesDevueltos(this.pasajesDevueltos.getInicio());
+    }
+    
+    private String mostrarPasajesNoDevueltos(Nodo<Pasaje> pasaje){
+        if(pasaje == null){
+            return "";
+        }else{
+            return pasaje.getDato().getCodigoVuelo() + "-" + "CPR" + 
+                    "|\n" + mostrarPasajesDevueltos(pasaje.getSiguiente());
+        }
+    }
+    
+    private String mostrarPasajesDevueltos(Nodo<Pasaje> pasaje){
+        if(pasaje == null){
+            return "";
+        }else{
+            return pasaje.getDato().getCodigoVuelo() + "-" + "DEV" + 
+                    "|\n" + mostrarPasajesDevueltos(pasaje.getSiguiente());
+        }
+    }
+    
     @Override
     public boolean equals(Object cliente) {
         if (!this.getClass().equals(cliente.getClass())) {
@@ -92,7 +125,7 @@ public class Cliente implements Comparable<Cliente> {
 
     @Override
     public String toString() {
-        return "Cliente{" + "pasaporte=" + pasaporte + ", nombre=" + nombre + ", edad=" + edad + '}';
+        return  pasaporte + "-" + nombre + "-"+edad;
     }
 
     @Override

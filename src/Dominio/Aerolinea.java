@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Dominio;
 
-import java.util.Objects;
 
 import tads.*;
 
@@ -34,9 +29,9 @@ public class Aerolinea implements Comparable<Aerolinea> {
         this.nombre = nombre;
         this.pais = pais;
         this.cantMaxAviones = cantMaxAviones;
-        this.aviones = new ListaConMaximo<Avion>(cantMaxAviones);
-        this.vuelos = new Lista<Vuelo>();
-        this.pasajesDevueltos = new Lista<Pasaje>();
+        this.aviones = new ListaConMaximo<>(cantMaxAviones);
+        this.vuelos = new Lista<>();
+        this.pasajesDevueltos = new Lista<>();
     }
 
     public String getNombre() {
@@ -49,6 +44,39 @@ public class Aerolinea implements Comparable<Aerolinea> {
 
     public String getPais() {
         return pais;
+    }
+    
+    public void agregarVuelo(Vuelo v){
+        this.vuelos.agregarInicio(v);
+    }
+    
+    public String mostrarPasajesDevueltos(){
+        Nodo<Pasaje> actual = this.pasajesDevueltos.getInicio();
+        StringBuilder sb = new StringBuilder();
+        while(actual != null){
+            sb.append(actual.getDato().getPasaporteCliente()).append("-")
+                    .append(actual.getDato().getCodigoVuelo()).append("|\n");
+        }
+        return sb.toString();
+    }
+    
+    public boolean existeVueloSegunFechaYAvion(String codAvion, int dia,int mes,int año){
+        Nodo<Vuelo> nodoActual = this.vuelos.getInicio();
+        boolean existeVuelo = false;
+        while(nodoActual !=null && !existeVuelo){
+            Vuelo datoActual = nodoActual.getDato();
+            if(datoActual.getCodigoVuelo().equals(codAvion) &&
+                    datoActual.getDia() == dia && datoActual.getMes() == mes &&
+                    datoActual.getAnio() == año){
+                existeVuelo = true;
+            }
+            nodoActual = nodoActual.getSiguiente();
+        }
+        return existeVuelo;
+    }
+    
+    public boolean avionExiste(String codAvion){
+        return this.aviones.estaElemento(new Avion(codAvion));
     }
 
     public void setPais(String pais) {
@@ -91,7 +119,7 @@ public class Aerolinea implements Comparable<Aerolinea> {
         int totalPasajes = 0;
         Nodo<Vuelo> vueloActual = vuelos.getInicio();
         while (vueloActual != null) {
-            if (vueloActual.getDato().getCodAvion() == avion.getCodigo()) {
+            if (vueloActual.getDato().getCodAvion().getCodigo() == avion.getCodigo()) {
                 totalPasajes += vueloActual.getDato().getTotalPasajesVendidos();
             }
             vueloActual = vueloActual.getSiguiente();
@@ -99,11 +127,19 @@ public class Aerolinea implements Comparable<Aerolinea> {
         return totalPasajes;
     }
     
+    public void agregarPasajeDevuelo(Pasaje item){
+        this.pasajesDevueltos.agregarFinal(item);
+    }
+    
+    public Avion encontrarAvion(String codAvion){
+        return this.aviones.obtenerElemento(new Avion(codAvion)).getDato();
+    }
+    
     public boolean hayPasajesVendidosEnAvion(Avion avion){
         boolean hayPasajes = false;
         Nodo<Vuelo> vueloActual = vuelos.getInicio();
         while (vueloActual != null && !hayPasajes) {
-            if (vueloActual.getDato().getCodAvion() == avion.getCodigo() && vueloActual.getDato().getTotalPasajesVendidos()>0) {
+            if (vueloActual.getDato().getCodAvion().equals(avion.getCodigo()) && vueloActual.getDato().getTotalPasajesVendidos()>0) {
                 hayPasajes = true;
             }
             vueloActual = vueloActual.getSiguiente();
