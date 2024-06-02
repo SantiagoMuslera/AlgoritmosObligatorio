@@ -197,16 +197,18 @@ public class IObligatorioTest {
     @Test
     public void testListarClientes() {
 
-        miSistema.registrarCliente("P234567", "Juan Perez", 30);
         miSistema.registrarCliente("P765432", "Maria Lopez", 25);
+        miSistema.registrarCliente("P234567", "Juan Perez", 30);
 
         Retorno r = miSistema.listarClientes();
-        assertEquals("P234567-Juan Perez-30|\nP765432-Maria Lopez-25", r.valorString);
+        assertEquals("P234567-Juan Perez-30|\nP765432-Maria Lopez-25|\nP123456-Lucho Lucheiro-20", r.valorString);
     }
 
     @Test
     public void testListarVuelos() {
-        //Completar para segunda entrega
+
+        Retorno r = miSistema.listarVuelos();
+        assertEquals("V321-Aerolineas Argentinas-avion1-1-0-60", r.valorString);
     }
 
     @Test
