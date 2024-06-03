@@ -155,15 +155,15 @@ public class IObligatorioTest {
         assertEquals(Retorno.error3().resultado, r.resultado);
 
         // Caso 4: Ya existe un vuelo para ese avión en esa fecha
-        r = miSistema.crearVuelo("V126", "Aerolineas Iberia", "avion1", "Chile", 1, 7, 2023, 30, 15);
+        r = miSistema.crearVuelo("V126", "Aerolineas Argentinas", "avion1", "Chile", 1, 7, 2023, 30, 15);
         assertEquals(Retorno.error4().resultado, r.resultado);
 
         // Caso 5: Cantidades de pasajes no son múltiplos de 3
-        r = miSistema.crearVuelo("V127", "Aerolineas Iberia", "avion1", "Perú", 2, 7, 2023, 31, 16);
+        r = miSistema.crearVuelo("V127", "Aerolineas Argentinas", "avion1", "Perú", 2, 7, 2023, 31, 16);
         assertEquals(Retorno.error5().resultado, r.resultado);
 
         // Caso 6: Suma de pasajes supera la cantidad máxima permitida por el avión
-        r = miSistema.crearVuelo("V128", "Aerolineas Iberia", "avion1", "Uruguay", 2, 7, 2023, 40, 25);
+        r = miSistema.crearVuelo("V128", "Aerolineas Argentinas", "avion1", "Uruguay", 2, 7, 2023, 42, 21);
         assertEquals(Retorno.error6().resultado, r.resultado);
     }
 
@@ -209,7 +209,7 @@ public class IObligatorioTest {
     public void testListarVuelos() {
 
         Retorno r = miSistema.listarVuelos();
-        assertEquals("V321-Aerolineas Argentinas-avion1-1-0-60", r.valorString);
+        assertEquals("V321-Aerolineas Argentinas-avion1-0-1-59|", r.valorString);
     }
 
     @Test

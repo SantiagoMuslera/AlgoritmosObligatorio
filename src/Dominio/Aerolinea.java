@@ -69,7 +69,7 @@ public class Aerolinea implements Comparable<Aerolinea> {
         boolean existeVuelo = false;
         while(nodoActual !=null && !existeVuelo){
             Vuelo datoActual = nodoActual.getDato();
-            if(datoActual.getCodigoVuelo().equals(codAvion) &&
+            if(datoActual.getAvion().getCodigo().equals(codAvion) &&
                     datoActual.getDia() == dia && datoActual.getMes() == mes &&
                     datoActual.getAnio() == año){
                 existeVuelo = true;
@@ -123,7 +123,7 @@ public class Aerolinea implements Comparable<Aerolinea> {
         int totalPasajes = 0;
         Nodo<Vuelo> vueloActual = vuelos.getInicio();
         while (vueloActual != null) {
-            if (vueloActual.getDato().getCodAvion().getCodigo() == avion.getCodigo()) {
+            if (vueloActual.getDato().getAvion().getCodigo() == avion.getCodigo()) {
                 totalPasajes += vueloActual.getDato().getTotalPasajesVendidos();
             }
             vueloActual = vueloActual.getSiguiente();
@@ -143,7 +143,7 @@ public class Aerolinea implements Comparable<Aerolinea> {
         boolean hayPasajes = false;
         Nodo<Vuelo> vueloActual = vuelos.getInicio();
         while (vueloActual != null && !hayPasajes) {
-            if (vueloActual.getDato().getCodAvion().equals(avion.getCodigo()) && vueloActual.getDato().getTotalPasajesVendidos()>0) {
+            if (vueloActual.getDato().getAvion().equals(avion.getCodigo()) && vueloActual.getDato().getTotalPasajesVendidos()>0) {
                 hayPasajes = true;
             }
             vueloActual = vueloActual.getSiguiente();

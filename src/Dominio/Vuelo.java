@@ -172,6 +172,12 @@ public class Vuelo implements Comparable<Vuelo> {
             this.pasajesPrimeraClase.agregarInicio(pasaje);
         }
     }
+    
+    
+    public int getCantidadDeAsientosDisponibles(){
+        int capMax = this.avion.getCapacidadMax();
+        return capMax - (this.getTotalPasajesVendidos());
+    }
 
     public Aerolinea getAerolinea() {
         return aerolinea;
@@ -181,7 +187,7 @@ public class Vuelo implements Comparable<Vuelo> {
         this.aerolinea = aerolinea;
     }
 
-    public Avion getCodAvion() {
+    public Avion getAvion() {
         return avion;
     }
 
@@ -221,6 +227,15 @@ public class Vuelo implements Comparable<Vuelo> {
         this.anio = anio;
     }
 
+    public ListaConMaximo<Pasaje> getPasajesEconomicos() {
+        return pasajesEconomicos;
+    }
+
+    public ListaConMaximo<Pasaje> getPasajesPrimeraClase() {
+        return pasajesPrimeraClase;
+    }
+
+    
     @Override
     public boolean equals(Object vuelo) {
 

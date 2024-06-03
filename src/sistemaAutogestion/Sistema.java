@@ -136,14 +136,6 @@ public class Sistema implements IObligatorio {
         }
         Aerolinea aero = this.listaAerolineas.obtenerElemento(new Aerolinea(aerolinea)).getDato();
         Avion avion = aero.encontrarAvion(codAvion);
-        if(avion.getCapacidadMax() > cantPasajesEcon+cantPasajesPClase){
-            int diff = avion.getCapacidadMax()-(cantPasajesEcon+cantPasajesPClase);
-            cantPasajesEcon+=diff;
-        }else{
-            if(cantPasajesEcon+cantPasajesPClase>avion.getCapacidadMax()){
-                return Retorno.error6();
-            }
-        }
         if(!aero.avionExiste(codAvion)){
             return Retorno.error3();
         }
@@ -153,6 +145,15 @@ public class Sistema implements IObligatorio {
         if(cantPasajesEcon%3 != 0 || cantPasajesPClase%3!=0){
             return Retorno.error5();
         }
+        if(avion.getCapacidadMax() > cantPasajesEcon+cantPasajesPClase){
+            int diff = avion.getCapacidadMax()-(cantPasajesEcon+cantPasajesPClase);
+            cantPasajesEcon+=diff;
+        }else{
+            if(cantPasajesEcon+cantPasajesPClase>avion.getCapacidadMax()){
+                return Retorno.error6();
+            }
+        }
+        
         Vuelo nuevoVuelo = new Vuelo(codigoVuelo,aero,avion,paisDestino,dia,mes,año,cantPasajesEcon,cantPasajesPClase);
         aero.agregarVuelo(nuevoVuelo);
         this.listaVuelos.agregarInicio(nuevoVuelo);
@@ -235,7 +236,22 @@ public class Sistema implements IObligatorio {
     //2.4
     @Override
     public Retorno listarVuelos() {
-        return Retorno.ok(this.listaVuelos.mostrarListaREC());
+        StringBuilder sb = new StringBuilder();
+        Nodo<Vuelo> actual = this.listaVuelos.getInicio();
+        while(actual != null){
+            Vuelo dato = actual.getDato();
+            sb.append(dato.getCodigoVuelo()).append("-")
+                    .append(dato.getAerolinea().getNombre()).append("-")
+                    .append(dato.getAvion().getCodigo()).append("-")
+                    .append(dato.getPasajesEconomicos().cantidadElementos()).append("-")
+                    .append(dato.getPasajesPrimeraClase().cantidadElementos()).append("-")
+                    .append(dato.getCantidadDeAsientosDisponibles()).append("|");
+            if(actual.getSiguiente() != null){
+                sb.append("\n");
+            }
+            actual = actual.getSiguiente();
+        }
+        return Retorno.ok(sb.toString());
     }
 
     //2.5

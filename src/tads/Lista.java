@@ -206,7 +206,7 @@ public class Lista<T extends Comparable<T>> implements ILista<T> {
         if (nodo == null) {
             return "";
         } else {
-            String retorno = nodo.toString() + "|";
+            String retorno = nodo.getDato().toString() + "|";
             if (nodo.getSiguiente() != null) {
                 retorno += "\n";
             }
