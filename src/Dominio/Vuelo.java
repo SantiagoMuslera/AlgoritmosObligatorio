@@ -40,8 +40,8 @@ public class Vuelo implements Comparable<Vuelo> {
         this.anio = anio;
         this.pasajesEconomicos = new ListaConMaximo<>(cantPasajesEcon);
         this.pasajesPrimeraClase = new ListaConMaximo<>(cantPasajesPClase);
-        this.pasajesEconomicosEnEspera = new Cola();
-        this.pasajesPrimeraClaseEnEspera = new Cola();
+        this.pasajesEconomicosEnEspera = new Cola<>();
+        this.pasajesPrimeraClaseEnEspera = new Cola<>();
 
     }
 
@@ -55,8 +55,8 @@ public class Vuelo implements Comparable<Vuelo> {
             } else {
                 if (this.pasajesEconomicosEnEspera.estaElemento(aux)) {
                     //return this.pasajesEconomicosEnEspera.obtenerElemento(aux).getDato();
-                }else{
-                    if(this.pasajesPrimeraClaseEnEspera.estaElemento(aux)){
+                } else {
+                    if (this.pasajesPrimeraClaseEnEspera.estaElemento(aux)) {
                         //return this.pasajesEconomicosEnEspera.obtenerElemento(aux).getDato();
                     }
                 }
@@ -69,18 +69,24 @@ public class Vuelo implements Comparable<Vuelo> {
         Pasaje aux = new Pasaje(cliente, this);
         if (this.pasajesEconomicos.estaElemento(aux)) {
             this.pasajesEconomicos.eliminarElemento(aux);
-            this.pasajesEconomicos.agregarFinal(this.pasajesEconomicosEnEspera.frente().getDato());
-            this.pasajesEconomicosEnEspera.desencolar();
+            Nodo<Pasaje> aDesencolar = this.pasajesEconomicosEnEspera.frente();
+            if (aDesencolar != null) {
+                this.pasajesEconomicos.agregarFinal(aDesencolar.getDato());
+                this.pasajesEconomicosEnEspera.desencolar();
+            }
         } else {
             if (this.pasajesPrimeraClase.estaElemento(aux)) {
-                 this.pasajesPrimeraClase.eliminarElemento(aux);
-                 this.pasajesPrimeraClase.agregarFinal(this.pasajesPrimeraClaseEnEspera.frente().getDato());
-                 this.pasajesPrimeraClaseEnEspera.desencolar();
+                this.pasajesPrimeraClase.eliminarElemento(aux);
+                Nodo<Pasaje> aDesencolar = this.pasajesPrimeraClaseEnEspera.frente();
+                if (aDesencolar != null) {
+                    this.pasajesPrimeraClase.agregarFinal(aDesencolar.getDato());
+                    this.pasajesPrimeraClaseEnEspera.desencolar();
+                }
             } else {
                 if (this.pasajesEconomicosEnEspera.estaElemento(aux)) {
                     this.pasajesEconomicosEnEspera.eliminarElemento(aux);
-                }else{
-                    if(this.pasajesPrimeraClaseEnEspera.estaElemento(aux)){
+                } else {
+                    if (this.pasajesPrimeraClaseEnEspera.estaElemento(aux)) {
                         this.pasajesPrimeraClaseEnEspera.eliminarElemento(aux);
                     }
                 }
@@ -115,11 +121,11 @@ public class Vuelo implements Comparable<Vuelo> {
     }
 
     private boolean clienteEnVueloTipoEconomico(Cliente cliente) {
-        return this.pasajesEconomicos.estaElemento(new Pasaje(cliente,this));
+        return this.pasajesEconomicos.estaElemento(new Pasaje(cliente, this));
     }
 
     private boolean clienteEnVueloTipoPrimeraClase(Cliente cliente) {
-        return this.pasajesPrimeraClase.estaElemento(new Pasaje(cliente,this));
+        return this.pasajesPrimeraClase.estaElemento(new Pasaje(cliente, this));
     }
 
     public boolean boletosPrimeraClaseLleno() {
@@ -228,10 +234,10 @@ public class Vuelo implements Comparable<Vuelo> {
 
     @Override
     public String toString() {
-        return this.codigoVuelo+"-"+this.aerolinea+"-"+this.avion.getCodigo()+
-                this.pasajesEconomicos.getCantidad()+"-"
-                +this.pasajesPrimeraClase.getCantidad()+"-"+
-                (pasajesEconomicos.espacioRestante()+pasajesPrimeraClase.espacioRestante());
+        return this.codigoVuelo + "-" + this.aerolinea + "-" + this.avion.getCodigo()
+                + this.pasajesEconomicos.getCantidad() + "-"
+                + this.pasajesPrimeraClase.getCantidad() + "-"
+                + (pasajesEconomicos.espacioRestante() + pasajesPrimeraClase.espacioRestante());
     }
 
     @Override

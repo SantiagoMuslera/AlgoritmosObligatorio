@@ -18,6 +18,10 @@ public class Cola<T extends Comparable<T>> implements ICola<T> {
         return cantidad;
     }
     
+    public Cola(){
+        cantidad = 0;
+    }
+    
     @Override
     public void encolar(T dato) {
         Nodo<T> nuevonodo = new Nodo(dato);

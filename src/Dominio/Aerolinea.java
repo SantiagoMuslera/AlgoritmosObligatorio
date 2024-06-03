@@ -54,8 +54,12 @@ public class Aerolinea implements Comparable<Aerolinea> {
         Nodo<Pasaje> actual = this.pasajesDevueltos.getInicio();
         StringBuilder sb = new StringBuilder();
         while(actual != null){
-            sb.append(actual.getDato().getPasaporteCliente()).append("-")
-                    .append(actual.getDato().getCodigoVuelo()).append("|\n");
+            sb.append(actual.getDato().getPasaporteCliente().getPasaporte()).append("-")
+                    .append(actual.getDato().getCodigoVuelo());
+            if(actual.getSiguiente()!=null){
+               sb.append("|\n"); 
+            }
+            actual = actual.getSiguiente();
         }
         return sb.toString();
     }
