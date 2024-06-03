@@ -213,17 +213,33 @@ public class IObligatorioTest {
 
     @Test
     public void testVuelosDeCliente() {
-        //Completar para segunda entrega
+        miSistema.registrarCliente("P123456", "Juan Perez", 30);
+        miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 50, 10);
+        miSistema.crearVuelo("V124", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 7, 2023, 40, 8);
+        miSistema.comprarPasaje("V123", "P123456", 1);
+        miSistema.comprarPasaje("V124", "P123456", 2);
+
+        Retorno r = miSistema.vuelosDeCliente("P123456");
+        assertEquals("V123-Brasil-01/07/2023|\nV124-Uruguay-05/07/2023", r.valorString);
     }
 
     @Test
     public void testPasajesDevueltos() {
-        //Completar para segunda entrega
+        
+        miSistema.comprarPasaje("V321", "P123456", 1);
+        miSistema.devolverPasaje("V123", "P123456");
+        Retorno r = miSistema.pasajesDevueltos("Aerolineas Argentinas");
+        assertEquals("V321-Uruguay-05/08/2023-P123456-Lucho Lucheiro", r.valorString);
     }
 
     @Test
     public void testVistaDeVuelo() {
-        //Completar para segunda entrega
+        miSistema.registrarCliente("P123456", "Juan Perez", 30);
+        miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 50, 10);
+        miSistema.comprarPasaje("V123", "P123456", 1);
+
+        Retorno r = miSistema.vistaDeVuelo("V123");
+        assertEquals("V123-Brasil-01/07/2023|\nP123456-Juan Perez-30", r.valorString);
     }
 
 }
