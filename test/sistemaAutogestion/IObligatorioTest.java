@@ -103,13 +103,13 @@ public class IObligatorioTest {
         r = miSistema.crearAerolinea("Pluna", "Uruguay", 2);
 
         r = miSistema.listarAerolineas();
-        assertEquals("Pluna-Uruguay-2|\nGol-Brasil-10|\nAerolineas Argentinas-Argentina-40", r.valorString);
+        assertEquals("Pluna-Uruguay-2|\nGol-Brasil-10|\nAerolineas Argentinas-Argentina-40|", r.valorString);
     }
 
     @Test
     public void testListarAvionesDeAerolinea1() {
         Retorno r = miSistema.listarAvionesDeAerolinea("Aerolineas Argentinas");
-        assertEquals("avion1-60", r.valorString);
+        assertEquals("avion1-60|", r.valorString);
 
         r = miSistema.listarAvionesDeAerolinea("Pluna");
         assertEquals(Retorno.error1().resultado, r.resultado);
@@ -202,7 +202,10 @@ public class IObligatorioTest {
         miSistema.registrarCliente("P234567", "Juan Perez", 30);
 
         Retorno r = miSistema.listarClientes();
-        assertEquals("P234567-Juan Perez-30|\nP765432-Maria Lopez-25|\nP123456-Lucho Lucheiro-20|", r.valorString);
+        assertEquals("P234567-Juan Perez-30"
+                + "|\nP765432-Maria Lopez-25"
+                + "|\nP123457-Santi Muzlo-34"
+                + "|\nP123456-Lucho Lucheiro-20|", r.valorString);
     }
 
     @Test
@@ -214,13 +217,13 @@ public class IObligatorioTest {
 
     @Test
     public void testVuelosDeCliente() {
-        miSistema.registrarCliente("P123456", "Juan Perez", 30);
+        miSistema.registrarCliente("P123458", "Juan Perez", 30);
         miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 50, 10);
         miSistema.crearVuelo("V124", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 7, 2023, 40, 8);
-        miSistema.comprarPasaje("V123", "P123456", 1);
-        miSistema.comprarPasaje("V124", "P123456", 2);
+        miSistema.comprarPasaje("P123458", "V123", 1);
+        miSistema.comprarPasaje("P123458", "V124", 2);
 
-        Retorno r = miSistema.vuelosDeCliente("P123456");
+        Retorno r = miSistema.vuelosDeCliente("P123458");
         assertEquals("V123-Brasil-01/07/2023|\nV124-Uruguay-05/07/2023", r.valorString);
     }
 

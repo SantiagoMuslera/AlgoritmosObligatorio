@@ -125,7 +125,7 @@ public class Cliente implements Comparable<Cliente> {
 
     @Override
     public String toString() {
-        return  pasaporte + "-" + nombre + "-"+edad;
+        return  pasaporte + "-" + nombre + "-" + edad;
     }
 
     @Override
