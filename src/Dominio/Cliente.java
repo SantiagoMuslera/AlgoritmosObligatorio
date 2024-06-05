@@ -119,7 +119,7 @@ public class Cliente implements Comparable<Cliente> {
             return false;
         } else {
             Cliente otroCliente = (Cliente) cliente;
-            return this.pasaporte == otroCliente.pasaporte;
+            return this.pasaporte.equals(otroCliente.pasaporte);
         }
     }
 

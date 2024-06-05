@@ -172,6 +172,7 @@ public class Sistema implements IObligatorio {
         Cliente cliente = this.listaClientes.obtenerElemento(new Cliente(pasaporteCliente)).getDato();
         Vuelo vueloBuscado = this.listaVuelos.obtenerElemento(new Vuelo(codigoVuelo)).getDato();
         Pasaje pasajeNuevo = new Pasaje(cliente,vueloBuscado,categoríaPasaje);
+        cliente.AgregarPasajeAlInicio(pasajeNuevo);
         if(categoríaPasaje == 1){
             if(vueloBuscado.boletosEconomicosLleno()){
                 vueloBuscado.agregarPasajeEconomicoEnEspera(pasajeNuevo);

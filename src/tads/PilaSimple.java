@@ -11,6 +11,10 @@ public class PilaSimple<T extends Comparable<T>> implements IPila<T> {
     public T getTope() {
         return tope.getDato();
     }
+    
+    public PilaSimple(){
+        tope = null;
+    }
 
     private int cantidad;
 

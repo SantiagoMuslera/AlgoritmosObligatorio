@@ -29,6 +29,7 @@ public class IObligatorioTest {
     @Test
     public void testCrearSistemaDeGestion() {
         //Completar para primera entrega
+        //se ejecuta el setup
         Retorno re = this.miSistema.crearSistemaDeGestion();
         assertEquals(Retorno.ok().resultado, re.resultado);
     }
@@ -218,8 +219,8 @@ public class IObligatorioTest {
     @Test
     public void testVuelosDeCliente() {
         miSistema.registrarCliente("P123458", "Juan Perez", 30);
-        miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 50, 10);
-        miSistema.crearVuelo("V124", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 7, 2023, 40, 8);
+        miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 18, 12);
+        miSistema.crearVuelo("V124", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 7, 2023, 18, 12);
         miSistema.comprarPasaje("P123458", "V123", 1);
         miSistema.comprarPasaje("P123458", "V124", 2);
 
