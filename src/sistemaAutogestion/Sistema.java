@@ -279,7 +279,55 @@ public class Sistema implements IObligatorio {
     //2.7
     @Override
     public Retorno vistaDeVuelo(String codigoVuelo) {
-        return Retorno.noImplementada();
+        Vuelo vuelo = buscarVuelo(codigoVuelo);
+        Avion avion = vuelo.getAvion();
+        int totalAsientos = avion.getCapacidadMax();
+        
+        StringBuilder vista = new StringBuilder();
+        
+        // Se agrega la seccion de Primera Clase
+        vista.append("**********************************\n");
+        vista.append("* PRIMERA * \n");
+        vista.append("**********************************\n");
+        
+        //Se agregan los asientos de primera clase
+        
+        
+        
     }
-
+    
+    // Metodo auxiliar para buscar un buelo segun el codigo de vuelo
+    public Vuelo buscarVuelo(String codigoVuelo){
+       Nodo<Vuelo> nodoVuelo = this.listaVuelos.getInicio();
+       while(nodoVuelo != null){
+           Vuelo vuelo = nodoVuelo.getDato();
+           if(vuelo.getCodigoVuelo().equals(codigoVuelo)){
+               return vuelo;
+           }
+           nodoVuelo = nodoVuelo.getSiguiente();
+       }
+       return null;
+    }
+    
+    // Metodo auxiliar para generar la vista de los asientos
+    public String [][] generarVistaAsientos(Lista<Cliente> pasajeros, int totalAsientos){
+        int filas = totalAsientos / 3;
+        String[][] asientos =new String [filas][3];
+        
+        Nodo<Cliente> nodoCliente = this.listaClientes.getInicio();
+        
+        for(int i = 0; i<filas; i++){
+            for(int j = 0; j<3; j++){
+                if (nodoCliente != null){
+                    asientos[i][j] = nodoCliente.getDato().getPasaporte();
+                    nodoCliente = nodoCliente.getSiguiente();
+                }
+                else {
+                    asientos [i][j] = "XXXXXX";
+                }
+               
+            }
+        }
+        return asientos;
+    }
 }
