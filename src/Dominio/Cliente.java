@@ -96,17 +96,17 @@ public class Cliente implements Comparable<Cliente> {
     }
     
     private String mostrarPasajesNoDevueltos(Nodo<Pasaje> pasaje){
-        if(pasaje == null){
-            return "";
+        if(pasaje.getSiguiente() == null){
+            return pasaje.getDato().getCodigoVuelo() + "-" + "CPR" + "|";
         }else{
             return pasaje.getDato().getCodigoVuelo() + "-" + "CPR" + 
-                    "|\n" + mostrarPasajesDevueltos(pasaje.getSiguiente());
+                    "|\n" + mostrarPasajesNoDevueltos(pasaje.getSiguiente());
         }
     }
     
     private String mostrarPasajesDevueltos(Nodo<Pasaje> pasaje){
-        if(pasaje == null){
-            return "";
+        if(pasaje.getSiguiente() == null){
+            return pasaje.getDato().getCodigoVuelo() + "-" + "DEV" + "|";
         }else{
             return pasaje.getDato().getCodigoVuelo() + "-" + "DEV" + 
                     "|\n" + mostrarPasajesDevueltos(pasaje.getSiguiente());
