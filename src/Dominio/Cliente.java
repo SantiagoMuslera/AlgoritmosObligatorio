@@ -4,7 +4,6 @@
  */
 package Dominio;
 
-import java.util.Objects;
 import tads.*;
 
 /**
@@ -17,23 +16,21 @@ public class Cliente implements Comparable<Cliente> {
     private String nombre;
     private int edad;
     private PilaSimple<Pasaje> pasajes;
-    private Lista<Pasaje> pasajesDevueltos;
-    
-    
-    public Cliente(String pasaporte){
+    private PilaSimple<Pasaje> pasajesDevueltos;
+
+    public Cliente(String pasaporte) {
         this.pasaporte = pasaporte;
     }
-    
+
     public Cliente(String pasaporte, String nombre, int edad) {
         this.pasaporte = pasaporte;
         this.nombre = nombre;
         this.edad = edad;
         this.pasajes = new PilaSimple<>();
-        this.pasajesDevueltos = new Lista<>();
+        this.pasajesDevueltos = new PilaSimple<>();
     }
-    
+
     //TODO: FALTA QUITAR EL PASAJE DEVUELTO DE LA PILA Y AÑADIRLO A LA LISTA.
-    
     public String getPasaporte() {
         return pasaporte;
     }
@@ -72,7 +69,7 @@ public class Cliente implements Comparable<Cliente> {
                 aux.apilar(pasajeActual);
                 this.pasajes.desApilar();
             }
-            pasajeActual = (Pasaje)this.pasajes.getTope();
+            pasajeActual = (Pasaje) this.pasajes.getTope();
         }
         Pasaje pasajeAuxActual = aux.getTope();
         for (int i = 0; i < aux.cantidadElementos(); i++) {
@@ -89,30 +86,42 @@ public class Cliente implements Comparable<Cliente> {
     public String MostrarListaPasajes() {
         return this.pasajes.MostrarContenido();
     }
-    
-    public String mostrarTodosLosPasajes(){
-        return mostrarPasajesNoDevueltos(this.pasajes.obtenerTope()) + 
-                mostrarPasajesDevueltos(this.pasajesDevueltos.getInicio());
+
+    public String mostrarTodosLosPasajes() {
+        return mostrarPasajesNoDevueltos(this.pasajes.ClonarContenido())
+                + mostrarPasajesDevueltos(this.pasajesDevueltos.ClonarContenido());
     }
-    
-    private String mostrarPasajesNoDevueltos(Nodo<Pasaje> pasaje){
-        if(pasaje.getSiguiente() == null){
-            return pasaje.getDato().getCodigoVuelo() + "-" + "CPR" + "|";
-        }else{
-            return pasaje.getDato().getCodigoVuelo() + "-" + "CPR" + 
-                    "|\n" + mostrarPasajesNoDevueltos(pasaje.getSiguiente());
+
+    private String mostrarPasajesNoDevueltos(PilaSimple<Pasaje> pasajes) {
+        if (pasajes.getTope() == null) {
+            return "";
+        } else {
+            String retorno = pasajes.getTope().getCodigoVuelo() + "-" + "CPR";
+            pasajes.desApilar();
+            if (pasajes.getTope() != null) {
+                retorno += "|\n";
+            } else {
+                if (this.pasajesDevueltos.getTope() == null) retorno += "|";
+                else retorno += "|\n";
+            }
+            return retorno + mostrarPasajesNoDevueltos(pasajes);
         }
     }
-    
-    private String mostrarPasajesDevueltos(Nodo<Pasaje> pasaje){
-        if(pasaje.getSiguiente() == null){
-            return pasaje.getDato().getCodigoVuelo() + "-" + "DEV" + "|";
-        }else{
-            return pasaje.getDato().getCodigoVuelo() + "-" + "DEV" + 
-                    "|\n" + mostrarPasajesDevueltos(pasaje.getSiguiente());
+
+    private String mostrarPasajesDevueltos(PilaSimple<Pasaje> pasajes) {
+        if (pasajes.getTope() == null) {
+            return "";
+        } else {
+            String retorno = pasajes.getTope().getCodigoVuelo() + "-" + "DEV";
+            pasajes.desApilar();
+            if (pasajes.getTope() != null) {
+                retorno += "|\n";
+            }else  retorno += "|";
+
+            return retorno + mostrarPasajesNoDevueltos(pasajes);
         }
     }
-    
+
     @Override
     public boolean equals(Object cliente) {
         if (!this.getClass().equals(cliente.getClass())) {
@@ -125,7 +134,7 @@ public class Cliente implements Comparable<Cliente> {
 
     @Override
     public String toString() {
-        return  pasaporte + "-" + nombre + "-" + edad;
+        return pasaporte + "-" + nombre + "-" + edad;
     }
 
     @Override

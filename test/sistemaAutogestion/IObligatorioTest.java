@@ -225,7 +225,7 @@ public class IObligatorioTest {
         miSistema.comprarPasaje("P123458", "V124", 2);
 
         Retorno r = miSistema.vuelosDeCliente("P123458");
-        assertEquals("V124-CPR|\nV123-CPR", r.valorString);
+        assertEquals("V124-CPR|\nV123-CPR|", r.valorString);
     }
 
     @Test

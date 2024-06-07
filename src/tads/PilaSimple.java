@@ -9,10 +9,13 @@ public class PilaSimple<T extends Comparable<T>> implements IPila<T> {
     private Nodo<T> tope;
 
     public T getTope() {
-        return tope.getDato();
+        if (tope != null) {
+            return tope.getDato();
+        }
+        return null;
     }
-    
-    public PilaSimple(){
+
+    public PilaSimple() {
         tope = null;
     }
 
@@ -50,15 +53,32 @@ public class PilaSimple<T extends Comparable<T>> implements IPila<T> {
     public int cantidadElementos() {
         return this.cantidad;
     }
-    
+
     @Override
-    public String MostrarContenido(){
+    public String MostrarContenido() {
         Nodo<T> actual = this.tope;
         StringBuilder sb = new StringBuilder();
-        while(actual != null){
+        while (actual != null) {
             sb.append(actual).append("|").append("\n");
         }
         return sb.toString();
+    }
+
+    public PilaSimple<T> ClonarContenido() {
+        PilaSimple<T> aux = new PilaSimple<>();
+        PilaSimple<T> reto = new PilaSimple<>();
+        Nodo<T> actual = tope;
+        while (actual != null) {
+            aux.apilar(actual.getDato());
+            desApilar();
+            actual = tope;
+        }
+        while (aux.tope != null) {
+            reto.apilar(aux.tope.getDato());
+            apilar(aux.tope.getDato());
+            aux.desApilar();
+        }
+        return reto;
     }
 
 }

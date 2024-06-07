@@ -293,7 +293,7 @@ public class Sistema implements IObligatorio {
         //Se agregan los asientos de primera clase
         
         
-        
+        return Retorno.noImplementada();
     }
     
     // Metodo auxiliar para buscar un buelo segun el codigo de vuelo
