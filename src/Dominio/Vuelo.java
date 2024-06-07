@@ -226,6 +226,26 @@ public class Vuelo implements Comparable<Vuelo> {
     public void setAnio(int anio) {
         this.anio = anio;
     }
+    
+    public Lista<Cliente> obtenerPasajerosPrimeraClase() {
+        Lista<Cliente> pasajeros = new Lista<Cliente>();
+        Nodo<Pasaje> actual = pasajesPrimeraClase.getInicio();
+        while (actual != null) {
+            pasajeros.agregarFinal(actual.getDato().getPasaporteCliente());
+            actual = actual.getSiguiente();
+        }
+        return pasajeros;
+    }
+    
+    public Lista<Cliente> obtenerPasajerosEconomica() {
+        Lista<Cliente> pasajeros = new Lista<Cliente>();
+        Nodo<Pasaje> actual = pasajesEconomicos.getInicio();
+        while (actual != null) {
+            pasajeros.agregarFinal(actual.getDato().getPasaporteCliente());
+            actual = actual.getSiguiente();
+        }
+        return pasajeros;
+    }
 
     public ListaConMaximo<Pasaje> getPasajesEconomicos() {
         return pasajesEconomicos;
