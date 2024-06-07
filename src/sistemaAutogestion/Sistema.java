@@ -287,7 +287,7 @@ public class Sistema implements IObligatorio {
 
         // Se agrega la seccion de Primera Clase
         vista.append("**********************************\n");
-        vista.append("* PRIMERA * \n");
+        vista.append("        *    PRIMERA    *         \n");
         vista.append("**********************************\n");
 
         //Se agregan los asientos de primera clase
@@ -298,7 +298,7 @@ public class Sistema implements IObligatorio {
 
         // Se agrega la seccion de Economica
         vista.append("**********************************\n");
-        vista.append("* ECONÓMICA *\n");
+        vista.append("        *    ECONÓMICA    *       \n");
         vista.append("**********************************\n");
         
         //Se agregan los asientos de la seccion economica
@@ -336,7 +336,7 @@ public class Sistema implements IObligatorio {
                     asientos[i][j] = nodoCliente.getDato().getPasaporte();
                     nodoCliente = nodoCliente.getSiguiente();
                 } else {
-                    asientos[i][j] = "XXXXXX";
+                    asientos[i][j] = "XXXXXXXX";
                 }
 
             }
@@ -346,8 +346,8 @@ public class Sistema implements IObligatorio {
 
     public void agregarSeccionVista(StringBuilder vista, String[][] asientos) {
         for (String[] fila : asientos) {
-            vista.append(" * ");
             for (String asiento : fila) {
+                vista.append(" * ");
                 vista.append(asiento).append(" * ");
             }
             vista.append("\n**********************************\n");
