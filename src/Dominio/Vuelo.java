@@ -246,7 +246,13 @@ public class Vuelo implements Comparable<Vuelo> {
         }
         return pasajeros;
     }
-
+    
+    public int getCantidadPasajesPrimeraClase(){
+        return this.pasajesPrimeraClase.getCantidad();
+    }
+    public int getCantidadPasajesEconomica(){
+        return this.pasajesEconomicos.getCantidad();
+    }
     public ListaConMaximo<Pasaje> getPasajesEconomicos() {
         return pasajesEconomicos;
     }

@@ -4,18 +4,17 @@ import Dominio.*;
 import tads.*;
 
 public class Sistema implements IObligatorio {
-    
+
     private Lista<Aerolinea> listaAerolineas;
     private Lista<Cliente> listaClientes;
     private Lista<Vuelo> listaVuelos;
-    
-    public Sistema(){
+
+    public Sistema() {
         this.listaAerolineas = new Lista();
         this.listaClientes = new Lista();
         this.listaVuelos = new Lista();
     }
-    
-    
+
     //1.1
     @Override
     public Retorno crearSistemaDeGestion() {
@@ -29,26 +28,26 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno crearAerolinea(String nombre, String pais, int cantMaxAviones) {
         Aerolinea aerolinea = new Aerolinea(nombre, pais, cantMaxAviones);
-       if(this.listaAerolineas.estaElemento(aerolinea)){
-           return Retorno.error1();
-       }
-       if(cantMaxAviones<=0){
-           return Retorno.error2();
-       }
-       this.listaAerolineas.agregarInicio(aerolinea);
-       return Retorno.ok();
+        if (this.listaAerolineas.estaElemento(aerolinea)) {
+            return Retorno.error1();
+        }
+        if (cantMaxAviones <= 0) {
+            return Retorno.error2();
+        }
+        this.listaAerolineas.agregarInicio(aerolinea);
+        return Retorno.ok();
     }
 
     //1.3
     @Override
     public Retorno eliminarAerolinea(String nombre) {
-        Aerolinea aerolinea = (Aerolinea)this.listaAerolineas
+        Aerolinea aerolinea = (Aerolinea) this.listaAerolineas
                 .obtenerElemento(new Aerolinea(nombre)).getDato();
-        if(!listaAerolineas.estaElemento(aerolinea)){
+        if (!listaAerolineas.estaElemento(aerolinea)) {
             return Retorno.error1();
         }
         int cantAviones = aerolinea.cantidadAviones();
-        if(cantAviones > 0){
+        if (cantAviones > 0) {
             return Retorno.error2();
         }
         listaAerolineas.eliminarElemento(aerolinea);
@@ -66,15 +65,15 @@ public class Sistema implements IObligatorio {
         if (!this.listaAerolineas.estaElemento(new Aerolinea(nomAerolinea))) {
             return Retorno.error3();
         }
-        
-        Aerolinea aero = (Aerolinea)this.listaAerolineas.obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
-        
-        Avion avion = new Avion(codigo,capacidadMax,aero);
+
+        Aerolinea aero = (Aerolinea) this.listaAerolineas.obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
+
+        Avion avion = new Avion(codigo, capacidadMax, aero);
         //El codigo ya esta en la aerolinea
-        if(aero.getAviones().estaElemento(avion)){
+        if (aero.getAviones().estaElemento(avion)) {
             return Retorno.error1();
         }
-        if(!aero.SePuedeAgregarAvion()){
+        if (!aero.SePuedeAgregarAvion()) {
             return Retorno.error4();
         }
         //finalmente si no esta en el codigo en la aerolinea se agrega el avion.
@@ -88,20 +87,20 @@ public class Sistema implements IObligatorio {
         if (!this.listaAerolineas.estaElemento(new Aerolinea(nomAerolinea))) {
             return Retorno.error1();
         }
-        Aerolinea aero = (Aerolinea)this.listaAerolineas
+        Aerolinea aero = (Aerolinea) this.listaAerolineas
                 .obtenerElemento(new Aerolinea(nomAerolinea)).getDato();
-      
+
         //Si el codigo no esta dentro de la aerolinea
-        if(!aero.getAviones().estaElemento(new Avion(codAvion))){
+        if (!aero.getAviones().estaElemento(new Avion(codAvion))) {
             return Retorno.error2();
         }
-        Avion avionBuscado = (Avion)aero.getAviones()
+        Avion avionBuscado = (Avion) aero.getAviones()
                 .obtenerElemento(new Avion(codAvion)).getDato();
-        
-        if(aero.hayPasajesVendidosEnAvion(avionBuscado)){
+
+        if (aero.hayPasajesVendidosEnAvion(avionBuscado)) {
             return Retorno.error3();
         }
-        
+
         aero.EliminarAvion(avionBuscado);
         return Retorno.ok();
     }
@@ -109,14 +108,14 @@ public class Sistema implements IObligatorio {
     //1.6
     @Override
     public Retorno registrarCliente(String pasaporte, String nombre, int edad) {
-        Cliente nuevocliente = new Cliente(pasaporte,nombre,edad);
-        if(edad<0){
+        Cliente nuevocliente = new Cliente(pasaporte, nombre, edad);
+        if (edad < 0) {
             return Retorno.error1();
         }
-        if(pasaporte.length() != 7){
+        if (pasaporte.length() != 7) {
             return Retorno.error2();
         }
-        if(listaClientes.estaElemento(nuevocliente)){
+        if (listaClientes.estaElemento(nuevocliente)) {
             return Retorno.error3();
         }
         listaClientes.agregarInicio(nuevocliente);
@@ -128,33 +127,33 @@ public class Sistema implements IObligatorio {
     public Retorno crearVuelo(String codigoVuelo, String aerolinea, String codAvion,
             String paisDestino, int dia, int mes, int año, int cantPasajesEcon,
             int cantPasajesPClase) {
-        if(this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
+        if (this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))) {
             return Retorno.error1();
         }
-        if(!this.listaAerolineas.estaElemento(new Aerolinea(aerolinea))){
+        if (!this.listaAerolineas.estaElemento(new Aerolinea(aerolinea))) {
             return Retorno.error2();
         }
         Aerolinea aero = this.listaAerolineas.obtenerElemento(new Aerolinea(aerolinea)).getDato();
         Avion avion = aero.encontrarAvion(codAvion);
-        if(!aero.avionExiste(codAvion)){
+        if (!aero.avionExiste(codAvion)) {
             return Retorno.error3();
         }
-        if(aero.existeVueloSegunFechaYAvion(codAvion,  dia, mes, año)){
+        if (aero.existeVueloSegunFechaYAvion(codAvion, dia, mes, año)) {
             return Retorno.error4();
         }
-        if(cantPasajesEcon%3 != 0 || cantPasajesPClase%3!=0){
+        if (cantPasajesEcon % 3 != 0 || cantPasajesPClase % 3 != 0) {
             return Retorno.error5();
         }
-        if(avion.getCapacidadMax() > cantPasajesEcon+cantPasajesPClase){
-            int diff = avion.getCapacidadMax()-(cantPasajesEcon+cantPasajesPClase);
-            cantPasajesEcon+=diff;
-        }else{
-            if(cantPasajesEcon+cantPasajesPClase>avion.getCapacidadMax()){
+        if (avion.getCapacidadMax() > cantPasajesEcon + cantPasajesPClase) {
+            int diff = avion.getCapacidadMax() - (cantPasajesEcon + cantPasajesPClase);
+            cantPasajesEcon += diff;
+        } else {
+            if (cantPasajesEcon + cantPasajesPClase > avion.getCapacidadMax()) {
                 return Retorno.error6();
             }
         }
-        
-        Vuelo nuevoVuelo = new Vuelo(codigoVuelo,aero,avion,paisDestino,dia,mes,año,cantPasajesEcon,cantPasajesPClase);
+
+        Vuelo nuevoVuelo = new Vuelo(codigoVuelo, aero, avion, paisDestino, dia, mes, año, cantPasajesEcon, cantPasajesPClase);
         aero.agregarVuelo(nuevoVuelo);
         this.listaVuelos.agregarInicio(nuevoVuelo);
         return Retorno.ok();
@@ -163,26 +162,26 @@ public class Sistema implements IObligatorio {
     //1.8
     @Override
     public Retorno comprarPasaje(String pasaporteCliente, String codigoVuelo, int categoríaPasaje) {
-        if(!this.listaClientes.estaElemento(new Cliente(pasaporteCliente))){
+        if (!this.listaClientes.estaElemento(new Cliente(pasaporteCliente))) {
             return Retorno.error1();
         }
-        if(!this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
+        if (!this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))) {
             return Retorno.error2();
         }
         Cliente cliente = this.listaClientes.obtenerElemento(new Cliente(pasaporteCliente)).getDato();
         Vuelo vueloBuscado = this.listaVuelos.obtenerElemento(new Vuelo(codigoVuelo)).getDato();
-        Pasaje pasajeNuevo = new Pasaje(cliente,vueloBuscado,categoríaPasaje);
+        Pasaje pasajeNuevo = new Pasaje(cliente, vueloBuscado, categoríaPasaje);
         cliente.AgregarPasajeAlInicio(pasajeNuevo);
-        if(categoríaPasaje == 1){
-            if(vueloBuscado.boletosEconomicosLleno()){
+        if (categoríaPasaje == 1) {
+            if (vueloBuscado.boletosEconomicosLleno()) {
                 vueloBuscado.agregarPasajeEconomicoEnEspera(pasajeNuevo);
-            }else{
+            } else {
                 vueloBuscado.agregarPasajeEconomico(pasajeNuevo);
             }
-        }else{
-            if(vueloBuscado.boletosPrimeraClaseLleno()){
+        } else {
+            if (vueloBuscado.boletosPrimeraClaseLleno()) {
                 vueloBuscado.agregarPasajePrimeraClaseEnEspera(pasajeNuevo);
-            }else{
+            } else {
                 vueloBuscado.agregarPasajePrimeraClase(pasajeNuevo);
             }
         }
@@ -192,15 +191,15 @@ public class Sistema implements IObligatorio {
     //1.9
     @Override
     public Retorno devolverPasaje(String pasaporteCliente, String codigoVuelo) {
-        if(!this.listaClientes.estaElemento(new Cliente(pasaporteCliente))){
+        if (!this.listaClientes.estaElemento(new Cliente(pasaporteCliente))) {
             return Retorno.error1();
         }
-        if(!this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))){
+        if (!this.listaVuelos.estaElemento(new Vuelo(codigoVuelo))) {
             return Retorno.error2();
         }
         Cliente cliente = this.listaClientes.obtenerElemento(new Cliente(pasaporteCliente)).getDato();
         Vuelo vueloBuscado = this.listaVuelos.obtenerElemento(new Vuelo(codigoVuelo)).getDato();
-        if(!vueloBuscado.clienteTienePasaje(cliente)){
+        if (!vueloBuscado.clienteTienePasaje(cliente)) {
             return Retorno.error3();
         }
         Pasaje pasaje = vueloBuscado.obtenerPasaje(cliente);
@@ -220,9 +219,9 @@ public class Sistema implements IObligatorio {
     //2.2
     @Override
     public Retorno listarAvionesDeAerolinea(String nombre) {
-        Aerolinea aero = (Aerolinea)this.listaAerolineas
+        Aerolinea aero = (Aerolinea) this.listaAerolineas
                 .obtenerElemento(new Aerolinea(nombre)).getDato();
-        if(!this.listaAerolineas.estaElemento(aero)){
+        if (!this.listaAerolineas.estaElemento(aero)) {
             return Retorno.error1();
         }
         return Retorno.ok(aero.MostrarListaAviones());
@@ -239,7 +238,7 @@ public class Sistema implements IObligatorio {
     public Retorno listarVuelos() {
         StringBuilder sb = new StringBuilder();
         Nodo<Vuelo> actual = this.listaVuelos.getInicio();
-        while(actual != null){
+        while (actual != null) {
             Vuelo dato = actual.getDato();
             sb.append(dato.getCodigoVuelo()).append("-")
                     .append(dato.getAerolinea().getNombre()).append("-")
@@ -247,7 +246,7 @@ public class Sistema implements IObligatorio {
                     .append(dato.getPasajesEconomicos().cantidadElementos()).append("-")
                     .append(dato.getPasajesPrimeraClase().cantidadElementos()).append("-")
                     .append(dato.getCantidadDeAsientosDisponibles()).append("|");
-            if(actual.getSiguiente() != null){
+            if (actual.getSiguiente() != null) {
                 sb.append("\n");
             }
             actual = actual.getSiguiente();
@@ -259,7 +258,7 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno vuelosDeCliente(String pasaporte) {
         Cliente cliente = new Cliente(pasaporte);
-        if(!this.listaClientes.estaElemento(cliente)){
+        if (!this.listaClientes.estaElemento(cliente)) {
             return Retorno.error1();
         }
         return Retorno.ok(this.listaClientes.obtenerElemento(cliente).getDato().mostrarTodosLosPasajes());
@@ -269,7 +268,7 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno pasajesDevueltos(String nombreAerolinea) {
         Aerolinea ae = new Aerolinea(nombreAerolinea);
-        if(!this.listaAerolineas.estaElemento(ae)){
+        if (!this.listaAerolineas.estaElemento(ae)) {
             return Retorno.error1();
         }
         String pasajesDevueltos = this.listaAerolineas.obtenerElemento(ae).getDato().mostrarPasajesDevueltos();
@@ -282,52 +281,76 @@ public class Sistema implements IObligatorio {
         Vuelo vuelo = buscarVuelo(codigoVuelo);
         Avion avion = vuelo.getAvion();
         int totalAsientos = avion.getCapacidadMax();
-        
+
         StringBuilder vista = new StringBuilder();
-        
+
         // Se agrega la seccion de Primera Clase
         vista.append("**********************************\n");
         vista.append("* PRIMERA * \n");
         vista.append("**********************************\n");
-        
+
         //Se agregan los asientos de primera clase
+        Lista<Cliente> pasajerosPrimeraClase = vuelo.obtenerPasajerosPrimeraClase();
+        int asientosPrimeraClase = vuelo.getCantidadPasajesPrimeraClase();
+        String[][] primeraClase = generarVistaAsientos(pasajerosPrimeraClase, asientosPrimeraClase);
+        agregarSeccionVista(vista, primeraClase);
+
+        // Se agrega la seccion de Economica
+        vista.append("**********************************\n");
+        vista.append("* ECONÓMICA *\n");
+        vista.append("**********************************\n");
         
+        //Se agregan los asientos de la seccion economica
+        Lista<Cliente> pasajerosEconomica = vuelo.obtenerPasajerosEconomica();
+        int asientosEconomica = vuelo.getCantidadPasajesEconomica();
+        String [][] economica = generarVistaAsientos(pasajerosEconomica, asientosEconomica);
+        agregarSeccionVista(vista,economica);
         
-        
+        return Retorno.ok(vista.toString());
+
     }
-    
+
     // Metodo auxiliar para buscar un buelo segun el codigo de vuelo
-    public Vuelo buscarVuelo(String codigoVuelo){
-       Nodo<Vuelo> nodoVuelo = this.listaVuelos.getInicio();
-       while(nodoVuelo != null){
-           Vuelo vuelo = nodoVuelo.getDato();
-           if(vuelo.getCodigoVuelo().equals(codigoVuelo)){
-               return vuelo;
-           }
-           nodoVuelo = nodoVuelo.getSiguiente();
-       }
-       return null;
+    public Vuelo buscarVuelo(String codigoVuelo) {
+        Nodo<Vuelo> nodoVuelo = this.listaVuelos.getInicio();
+        while (nodoVuelo != null) {
+            Vuelo vuelo = nodoVuelo.getDato();
+            if (vuelo.getCodigoVuelo().equals(codigoVuelo)) {
+                return vuelo;
+            }
+            nodoVuelo = nodoVuelo.getSiguiente();
+        }
+        return null;
     }
-    
+
     // Metodo auxiliar para generar la vista de los asientos
-    public String [][] generarVistaAsientos(Lista<Cliente> pasajeros, int totalAsientos){
+    public String[][] generarVistaAsientos(Lista<Cliente> pasajeros, int totalAsientos) {
         int filas = totalAsientos / 3;
-        String[][] asientos =new String [filas][3];
-        
-        Nodo<Cliente> nodoCliente = this.listaClientes.getInicio();
-        
-        for(int i = 0; i<filas; i++){
-            for(int j = 0; j<3; j++){
-                if (nodoCliente != null && nodoCliente.getDato().){
+        String[][] asientos = new String[filas][3];
+
+        Nodo<Cliente> nodoCliente = pasajeros.getInicio();
+
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (nodoCliente != null) {
                     asientos[i][j] = nodoCliente.getDato().getPasaporte();
                     nodoCliente = nodoCliente.getSiguiente();
+                } else {
+                    asientos[i][j] = "XXXXXX";
                 }
-                else {
-                    asientos [i][j] = "XXXXXX";
-                }
-               
+
             }
         }
         return asientos;
+    }
+
+    public void agregarSeccionVista(StringBuilder vista, String[][] asientos) {
+        for (String[] fila : asientos) {
+            vista.append(" * ");
+            for (String asiento : fila) {
+                vista.append(asiento).append(" * ");
+            }
+            vista.append("\n**********************************\n");
+        }
     }
 }
