@@ -306,12 +306,7 @@ public class Sistema implements IObligatorio {
         String [][] economica = generarVistaAsientos(pasajerosEconomica, asientosEconomica);
         agregarSeccionVista(vista,economica);
         
-<<<<<<< HEAD
         return Retorno.ok(vista.toString());
-
-=======
-        return Retorno.noImplementada();
->>>>>>> 848b4418994b5314ea0fa68bb630a7c2314ea57b
     }
 
     // Metodo auxiliar para buscar un buelo segun el codigo de vuelo
