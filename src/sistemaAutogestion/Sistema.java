@@ -41,11 +41,12 @@ public class Sistema implements IObligatorio {
     //1.3
     @Override
     public Retorno eliminarAerolinea(String nombre) {
-        Aerolinea aerolinea = (Aerolinea) this.listaAerolineas
-                .obtenerElemento(new Aerolinea(nombre)).getDato();
-        if (!listaAerolineas.estaElemento(aerolinea)) {
+        
+        if (!listaAerolineas.estaElemento(new Aerolinea(nombre))) {
             return Retorno.error1();
         }
+        Aerolinea aerolinea = (Aerolinea) this.listaAerolineas
+                .obtenerElemento(new Aerolinea(nombre)).getDato();
         int cantAviones = aerolinea.cantidadAviones();
         if (cantAviones > 0) {
             return Retorno.error2();

@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 
 package sistemaAutogestion;
 import org.junit.Before;
@@ -219,7 +214,7 @@ public class IObligtorioJunitTest {
         r = miSistema.crearAerolinea("Copa Airlines", "Panamá", 30);
         assertEquals(Retorno.ok().resultado, r.resultado);
         r = miSistema.listarAerolineas();
-        assertEquals("Aerolineas Argentinas-Argentina-10|\nCopa Airlines-Panamá-30|\nDelta Air Lines-Estados Unidos-30|\nIberia-España-20|", r.valorString);
+        assertEquals("Copa Airlines-Panamá-30|\nDelta Air Lines-Estados Unidos-30|\nIberia-España-20|\nAerolineas Argentinas-Argentina-10|", r.valorString);
         
 		//Agregado
 		r = miSistema.eliminarAerolinea("Aerolineas Argentinas");
