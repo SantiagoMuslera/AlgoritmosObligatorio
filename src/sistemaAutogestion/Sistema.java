@@ -318,7 +318,7 @@ public class Sistema implements IObligatorio {
         
         for(int i = 0; i<filas; i++){
             for(int j = 0; j<3; j++){
-                if (nodoCliente != null){
+                if (nodoCliente != null && nodoCliente.getDato().){
                     asientos[i][j] = nodoCliente.getDato().getPasaporte();
                     nodoCliente = nodoCliente.getSiguiente();
                 }
