@@ -237,18 +237,40 @@ public class IObligatorioTest {
 
     @Test
     public void testVistaDeVuelo() {
-        //EL CLIENTE CON ESE PASAPORTE ESTA EN EL SETUP, ESTAS DUPLICANDO CLIENTES
-        //TENDRIAS QUE CREAR OTRO CLIENTE DISTINTO CON DISTINTO PASAPORTE
-        miSistema.registrarCliente("P123456", "Juan Perez", 30);
-        //LOS VUELOS TIENE QUE TENER ASIENTOS DEVISIBLES ENTRE 3
-        // 50 %3 != 0 NO ES UNA CANTIDAD VALIDA/
-        //12 % 3 == 0 ES UNA CANTIDAD VALIDA
-        miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 50, 10);
+     
+        miSistema.registrarCliente("P123458", "Juan Perez", 30);
+        miSistema.registrarCliente("P123459", "Mario Neta", 26);
+       
+        miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 12, 9);
         //ESTA BIEN LA COMPRA 
-        miSistema.comprarPasaje("V123", "P123456", 1);
+        miSistema.comprarPasaje("P123456", "V123", 2);
+        miSistema.comprarPasaje("P123457", "V123", 2);
+        miSistema.comprarPasaje("P1234568", "V123", 1);
+        miSistema.comprarPasaje("P123459", "V123", 1);
         Retorno r = miSistema.vistaDeVuelo("V123");
-        //FALTA HACER LO QUE ESPERAMOS.(**** PRIMERA CLASE *** ...ETC)
-        assertEquals("V123-Brasil-01/07/2023|\nP123456-Juan Perez-30", r.valorString);
+        
+        StringBuilder vistaEsperada = new StringBuilder();
+        
+        // Primera Clase
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append("        *    PRIMERA    *         \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * P123458 * P123459 * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX * XXXXXXXX * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        
+        // Clase Económica
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append("        *    ECONÓMICA    *       \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * P123456 * P123457 * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX * XXXXXXXX * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        
+        
+        assertEquals(vistaEsperada.toString(), r.valorString);
     }
 
 }
