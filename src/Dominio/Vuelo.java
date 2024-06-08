@@ -172,9 +172,8 @@ public class Vuelo implements Comparable<Vuelo> {
             this.pasajesPrimeraClase.agregarInicio(pasaje);
         }
     }
-    
-    
-    public int getCantidadDeAsientosDisponibles(){
+
+    public int getCantidadDeAsientosDisponibles() {
         int capMax = this.avion.getCapacidadMax();
         return capMax - (this.getTotalPasajesVendidos());
     }
@@ -226,7 +225,7 @@ public class Vuelo implements Comparable<Vuelo> {
     public void setAnio(int anio) {
         this.anio = anio;
     }
-    
+
     public Lista<Cliente> obtenerPasajerosPrimeraClase() {
         Lista<Cliente> pasajeros = new Lista<Cliente>();
         Nodo<Pasaje> actual = pasajesPrimeraClase.getInicio();
@@ -236,7 +235,7 @@ public class Vuelo implements Comparable<Vuelo> {
         }
         return pasajeros;
     }
-    
+
     public Lista<Cliente> obtenerPasajerosEconomica() {
         Lista<Cliente> pasajeros = new Lista<Cliente>();
         Nodo<Pasaje> actual = pasajesEconomicos.getInicio();
@@ -246,13 +245,23 @@ public class Vuelo implements Comparable<Vuelo> {
         }
         return pasajeros;
     }
-    
-    public int getCantidadPasajesPrimeraClase(){
+
+    public int getCantidadPasajesPrimeraClase() {
         return this.pasajesPrimeraClase.getCantidad();
     }
-    public int getCantidadPasajesEconomica(){
+
+    public int getCantidadPasajesEconomica() {
         return this.pasajesEconomicos.getCantidad();
     }
+
+    public int getCantidadMaximaDePasajesEconomica() {
+        return this.pasajesEconomicos.getCantidadMaxima();
+    }
+
+    public int getCantidadMaximaDePasajesPrimeraClase() {
+        return this.pasajesPrimeraClase.getCantidadMaxima();
+    }
+
     public ListaConMaximo<Pasaje> getPasajesEconomicos() {
         return pasajesEconomicos;
     }
@@ -261,7 +270,6 @@ public class Vuelo implements Comparable<Vuelo> {
         return pasajesPrimeraClase;
     }
 
-    
     @Override
     public boolean equals(Object vuelo) {
 

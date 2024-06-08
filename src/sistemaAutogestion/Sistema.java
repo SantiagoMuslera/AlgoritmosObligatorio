@@ -292,7 +292,7 @@ public class Sistema implements IObligatorio {
 
         //Se agregan los asientos de primera clase
         Lista<Cliente> pasajerosPrimeraClase = vuelo.obtenerPasajerosPrimeraClase();
-        int asientosPrimeraClase = vuelo.getCantidadPasajesPrimeraClase();
+        int asientosPrimeraClase = vuelo.getCantidadMaximaDePasajesPrimeraClase();
         String[][] primeraClase = generarVistaAsientos(pasajerosPrimeraClase, asientosPrimeraClase);
         agregarSeccionVista(vista, primeraClase);
 
@@ -303,7 +303,7 @@ public class Sistema implements IObligatorio {
         
         //Se agregan los asientos de la seccion economica
         Lista<Cliente> pasajerosEconomica = vuelo.obtenerPasajerosEconomica();
-        int asientosEconomica = vuelo.getCantidadPasajesEconomica();
+        int asientosEconomica = vuelo.getCantidadMaximaDePasajesEconomica();
         String [][] economica = generarVistaAsientos(pasajerosEconomica, asientosEconomica);
         agregarSeccionVista(vista,economica);
         
