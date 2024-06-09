@@ -82,6 +82,8 @@ public class IObligatorioTest2 {
         assertEquals("AA1111-Aerolineas Argentinas-FLY221-0-0-15|"
                 + "\nAA2222-Aerolineas Argentinas-FLY221-0-0-15|"
                 + "\nAA3333-Aerolineas Argentinas-FLY221-0-0-15|", r.valorString);
+        
+        //El orden se encuentra invertido.
 
         //Compra de pasajes
         r = miSistema.comprarPasaje("MF34111", "AA1111", 1);

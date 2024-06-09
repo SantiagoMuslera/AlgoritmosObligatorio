@@ -310,8 +310,9 @@ public class Sistema implements IObligatorio {
         
         return Retorno.ok(vista.toString());
     }
-
-    // Metodo auxiliar para buscar un buelo segun el codigo de vuelo
+    // PRE: Dado una codigo de vuelo se busca un vuelo con ese codigo
+    // POST: Se devuelve el vuelo buscado
+    
     private Vuelo buscarVuelo(String codigoVuelo) {
         Nodo<Vuelo> nodoVuelo = this.listaVuelos.getInicio();
         while (nodoVuelo != null) {
@@ -323,8 +324,9 @@ public class Sistema implements IObligatorio {
         }
         return null;
     }
+    // PRE: Dado una lista de pasajeros y el total de asientos se genera la matriz de asientos.
+    // POOST: Devuelve la matriz de asientos.
 
-    // Metodo auxiliar para generar la vista de los asientos
     private String[][] generarVistaAsientos(Lista<Cliente> pasajeros, int totalAsientos) {
         int filas = totalAsientos / 3;
         String[][] asientos = new String[filas][3];
@@ -345,6 +347,9 @@ public class Sistema implements IObligatorio {
         return asientos;
     }
 
+    //PRE: Dada la vista y la matriz de asientos se generan los separadores de la vista
+    //POST: Modifica el StringBuilder de la vista para que este completo
+    
     private void agregarSeccionVista(StringBuilder vista, String[][] asientos) {
         for (String[] fila : asientos) {
             for (String asiento : fila) {

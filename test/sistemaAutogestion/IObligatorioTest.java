@@ -21,7 +21,7 @@ public class IObligatorioTest {
         miSistema.registrarCliente("P123456", "Lucho Lucheiro", 20);
         miSistema.registrarCliente("P123457", "Santi Muzlo", 34);
         miSistema.crearVuelo("V321", "Aerolineas Argentinas", "avion1", "Uruguay", 5, 8, 2023, 30, 15);
-        miSistema.comprarPasaje("P123456","V321",  1);
+        miSistema.comprarPasaje("P123456", "V321", 1);
 
         //Coloca aquí cualquier otra inicialización de listas necesaria
     }
@@ -95,7 +95,6 @@ public class IObligatorioTest {
         r = miSistema.eliminarAvion("Aerolineas Brasil", "avion3");
         assertEquals(Retorno.error2().resultado, r.resultado);
 
-        // No se testeo el error 3 porque no se implementó el agregar pasaje.
     }
 
     @Test
@@ -128,7 +127,7 @@ public class IObligatorioTest {
         r = miSistema.registrarCliente("P1234567", "Maria Lopez", 25); // Pasaporte + 7 caracteres
         assertEquals(Retorno.error2().resultado, r.resultado);
 
-        r = miSistema.registrarCliente("P12345", "Ana Gomez", 26); // Pasapirte - 7 caracteres
+        r = miSistema.registrarCliente("P12345", "Ana Gomez", 26); // Pasaporte - 7 caracteres
         assertEquals(Retorno.error2().resultado, r.resultado);
 
         r = miSistema.registrarCliente("P123456", "Lucho Lucheiro", 20);
@@ -170,13 +169,13 @@ public class IObligatorioTest {
 
     @Test
     public void testComprarPasaje() {
-        Retorno r = miSistema.comprarPasaje( "P123457","V321", 1);
+        Retorno r = miSistema.comprarPasaje("P123457", "V321", 1);
         assertEquals(Retorno.ok().resultado, r.resultado);
 
         r = miSistema.comprarPasaje("P123456", "V321", 2);
         assertEquals(Retorno.ok().resultado, r.resultado);
 
-        r = miSistema.comprarPasaje("P654321","V123", 1);
+        r = miSistema.comprarPasaje("P654321", "V123", 1);
         assertEquals(Retorno.error1().resultado, r.resultado); // Pasaporte del cliente y vuelo no existen 
 
         r = miSistema.comprarPasaje("P123456", "V124", 1);
@@ -186,14 +185,17 @@ public class IObligatorioTest {
     @Test
     public void testDevolverPasaje() {
 
-        Retorno r = miSistema.devolverPasaje( "P123456","V321");
+        Retorno r = miSistema.devolverPasaje("P123456", "V321");
         assertEquals(Retorno.ok().resultado, r.resultado);
 
-        r = miSistema.devolverPasaje("P654321","V321" );
+        r = miSistema.devolverPasaje("P654321", "V321");
         assertEquals(Retorno.error1().resultado, r.resultado); // Pasaporte no registrado
 
-        r = miSistema.devolverPasaje("P123456","V124");
+        r = miSistema.devolverPasaje("P123456", "V124");
         assertEquals(Retorno.error2().resultado, r.resultado); // Vuelo no registrado
+
+        r = miSistema.devolverPasaje("P123456", "V321");
+        assertEquals(Retorno.error3().resultado, r.resultado); // Cliente no tiene pasaje para dicho vuelo
     }
 
     @Test
@@ -226,21 +228,29 @@ public class IObligatorioTest {
 
         Retorno r = miSistema.vuelosDeCliente("P123458");
         assertEquals("V124-CPR|\nV123-CPR|", r.valorString);
+
+        r = miSistema.vuelosDeCliente("V987");
+        assertEquals(Retorno.error1().resultado, r.resultado);
     }
 
     @Test
     public void testPasajesDevueltos() {
-        miSistema.devolverPasaje("P123456","V321" );
+        miSistema.devolverPasaje("P123456", "V321");
+
         Retorno r = miSistema.pasajesDevueltos("Aerolineas Argentinas");
         assertEquals("P123456-V321|", r.valorString);
+
+        r = miSistema.pasajesDevueltos("Aerolineas Tacuarembo");
+        assertEquals(Retorno.error1().resultado, r.resultado);
+
     }
 
     @Test
     public void testVistaDeVuelo() {
-     
+
         miSistema.registrarCliente("P123458", "Juan Perez", 30);
         miSistema.registrarCliente("P123459", "Mario Neta", 26);
-       
+
         miSistema.crearVuelo("V123", "Aerolineas Argentinas", "avion1", "Brasil", 1, 7, 2023, 12, 9);
         //ESTA BIEN LA COMPRA 
         miSistema.comprarPasaje("P123456", "V123", 2);
@@ -248,9 +258,9 @@ public class IObligatorioTest {
         miSistema.comprarPasaje("P123458", "V123", 1);
         miSistema.comprarPasaje("P123459", "V123", 1);
         Retorno r = miSistema.vistaDeVuelo("V123");
-        
+
         StringBuilder vistaEsperada = new StringBuilder();
-        
+
         // Primera Clase
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append("        *    PRIMERA    *         \n");
@@ -261,7 +271,7 @@ public class IObligatorioTest {
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
         vistaEsperada.append("**********************************\n");
-        
+
         // Clase Económica
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append("        *    ECONÓMICA    *       \n");
