@@ -133,10 +133,14 @@ public class ListaConMaximo<T extends Comparable<T>> implements ILista<T> {
                 eliminarInicio();
             } else {
                 Nodo nodoactual = this.inicio;
-                while (nodoactual != null) {
+                boolean encontrado = false;
+                while (nodoactual != null && !encontrado) {
                     if (nodoactual.getSiguiente().getSiguiente() == null) {
                         nodoactual.setSiguiente(null);
                         this.fin = nodoactual;
+                        encontrado = true;
+                    }else{
+                        nodoactual = nodoactual.getSiguiente();
                     }
                 }
                 this.cantidad--;

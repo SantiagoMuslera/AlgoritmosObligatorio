@@ -31,6 +31,25 @@ public class Cliente implements Comparable<Cliente> {
     }
 
     //TODO: FALTA QUITAR EL PASAJE DEVUELTO DE LA PILA Y AÑADIRLO A LA LISTA.
+    
+    public void devolverPasaje(String codigoVuelo){
+        PilaSimple<Pasaje> aux = pasajes.ClonarContenido();
+        Pasaje actual = aux.getTope();
+        boolean encontrado = false;
+        while(actual != null && !encontrado){
+            if(actual.getCodigoVuelo().equals(codigoVuelo)){
+                aux.desApilar();
+                pasajesDevueltos.apilar(actual);
+                encontrado = true;
+            }else{
+                aux.desApilar();
+                actual = aux.getTope();
+            }
+        }
+    }
+    
+    
+    
     public String getPasaporte() {
         return pasaporte;
     }

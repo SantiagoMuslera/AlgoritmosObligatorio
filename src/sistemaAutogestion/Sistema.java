@@ -207,6 +207,7 @@ public class Sistema implements IObligatorio {
         vueloBuscado.getAerolinea().agregarPasajeDevuelo(pasaje);
         vueloBuscado.devolverPasaje(cliente);
         //TODO: FALTA AÑADIR A LA LISTA DE DEVUELTOS EN CLIENTE Y QUITARLE EL PASAJE DE LA PILA.
+        cliente.devolverPasaje(vueloBuscado.getCodigoVuelo());
         return Retorno.ok();
     }
 

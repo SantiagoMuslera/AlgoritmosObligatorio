@@ -58,6 +58,8 @@ public class Aerolinea implements Comparable<Aerolinea> {
                     .append(actual.getDato().getCodigoVuelo());
             if(actual.getSiguiente()!=null){
                sb.append("|\n"); 
+            }else{
+                sb.append("|");
             }
             actual = actual.getSiguiente();
         }
