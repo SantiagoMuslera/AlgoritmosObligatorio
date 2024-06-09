@@ -245,7 +245,7 @@ public class IObligatorioTest {
         //ESTA BIEN LA COMPRA 
         miSistema.comprarPasaje("P123456", "V123", 2);
         miSistema.comprarPasaje("P123457", "V123", 2);
-        miSistema.comprarPasaje("P1234568", "V123", 1);
+        miSistema.comprarPasaje("P123458", "V123", 1);
         miSistema.comprarPasaje("P123459", "V123", 1);
         Retorno r = miSistema.vistaDeVuelo("V123");
         
@@ -255,21 +255,54 @@ public class IObligatorioTest {
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append("        *    PRIMERA    *         \n");
         vistaEsperada.append("**********************************\n");
-        vistaEsperada.append(" * P123458 * P123459 * XXXXXXXX * \n");
+        vistaEsperada.append(" * P123458 *  * P123459 *  * XXXXXXXX * \n");
         vistaEsperada.append("**********************************\n");
-        vistaEsperada.append(" * XXXXXXXX * XXXXXXXX * XXXXXXXX * \n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
         vistaEsperada.append("**********************************\n");
         
         // Clase Económica
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append("        *    ECONÓMICA    *       \n");
         vistaEsperada.append("**********************************\n");
-        vistaEsperada.append(" * P123456 * P123457 * XXXXXXXX * \n");
+        vistaEsperada.append(" * P123456 *  * P123457 *  * XXXXXXXX * \n");
         vistaEsperada.append("**********************************\n");
-        vistaEsperada.append(" * XXXXXXXX * XXXXXXXX * XXXXXXXX * \n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        //falta llenar muchos con la XXXXXXXX
+        //SON 60 ASIENTOS 9 DE PRIMERA CLASE Y 51 DE ECONOMICA
+        //FALTAN 3 POR LLENAR DE PC Y 45 DE ECONOMICA
         vistaEsperada.append("**********************************\n");
         
-        
+        /* 
+**********************************
+        *    PRIMERA    *         
+**********************************
+ * P123458 *  * P123459 *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+**********************************
+        *    ECONÓMICA    *       
+**********************************
+ * P123456 *  * P123457 *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+**********************************
+ * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
+        */
         assertEquals(vistaEsperada.toString(), r.valorString);
     }
 
