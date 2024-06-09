@@ -312,7 +312,7 @@ public class Sistema implements IObligatorio {
     }
 
     // Metodo auxiliar para buscar un buelo segun el codigo de vuelo
-    public Vuelo buscarVuelo(String codigoVuelo) {
+    private Vuelo buscarVuelo(String codigoVuelo) {
         Nodo<Vuelo> nodoVuelo = this.listaVuelos.getInicio();
         while (nodoVuelo != null) {
             Vuelo vuelo = nodoVuelo.getDato();
@@ -325,7 +325,7 @@ public class Sistema implements IObligatorio {
     }
 
     // Metodo auxiliar para generar la vista de los asientos
-    public String[][] generarVistaAsientos(Lista<Cliente> pasajeros, int totalAsientos) {
+    private String[][] generarVistaAsientos(Lista<Cliente> pasajeros, int totalAsientos) {
         int filas = totalAsientos / 3;
         String[][] asientos = new String[filas][3];
 
@@ -345,7 +345,7 @@ public class Sistema implements IObligatorio {
         return asientos;
     }
 
-    public void agregarSeccionVista(StringBuilder vista, String[][] asientos) {
+    private void agregarSeccionVista(StringBuilder vista, String[][] asientos) {
         for (String[] fila : asientos) {
             for (String asiento : fila) {
                 vista.append(" * ");

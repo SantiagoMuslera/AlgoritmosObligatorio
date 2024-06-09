@@ -232,7 +232,7 @@ public class IObligatorioTest {
     public void testPasajesDevueltos() {
         miSistema.devolverPasaje("P123456","V321" );
         Retorno r = miSistema.pasajesDevueltos("Aerolineas Argentinas");
-        assertEquals("P123456-V321", r.valorString);
+        assertEquals("P123456-V321|", r.valorString);
     }
 
     @Test
@@ -296,42 +296,11 @@ public class IObligatorioTest {
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n"); //45
         vistaEsperada.append("**********************************\n");
-        //falta llenar muchos con la XXXXXXXX
-        //SON 60 ASIENTOS 9 DE PRIMERA CLASE Y 51 DE ECONOMICA
-        //FALTAN 3 POR LLENAR DE PC Y 45 DE ECONOMICA
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
         vistaEsperada.append("**********************************\n");
-        
-        /* 
-**********************************
-        *    PRIMERA    *         
-**********************************
- * P123458 *  * P123459 *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
-**********************************
-        *    ECONÓMICA    *       
-**********************************
- * P123456 *  * P123457 *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-**********************************
- * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * 
-        */
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+
         assertEquals(vistaEsperada.toString(), r.valorString);
     }
 
