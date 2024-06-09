@@ -259,6 +259,8 @@ public class IObligatorioTest {
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
         vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
         
         // Clase Económica
         vistaEsperada.append("**********************************\n");
@@ -267,6 +269,33 @@ public class IObligatorioTest {
         vistaEsperada.append(" * P123456 *  * P123457 *  * XXXXXXXX * \n");
         vistaEsperada.append("**********************************\n");
         vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n"); // 30
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n");
+        vistaEsperada.append("**********************************\n");
+        vistaEsperada.append(" * XXXXXXXX *  * XXXXXXXX *  * XXXXXXXX * \n"); //45
+        vistaEsperada.append("**********************************\n");
         //falta llenar muchos con la XXXXXXXX
         //SON 60 ASIENTOS 9 DE PRIMERA CLASE Y 51 DE ECONOMICA
         //FALTAN 3 POR LLENAR DE PC Y 45 DE ECONOMICA
